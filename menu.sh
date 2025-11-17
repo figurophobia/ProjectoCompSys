@@ -9,11 +9,12 @@
 CONFIG_FILE="hosts.conf"
 LOCAL_SCRIPTS_DIR="local_scripts"
 SSH_USER="root"
+WINDOWS_USER="Administrator"
+WINDOWS_PASS="1QAZxsw2"
 
-mkdir -p "$LOCAL_SCRIPTS_DIR/linux" "$LOCAL_SCRIPTS_DIR/windows"
 
 # ============================================================================
-# Verificar que dialog y ssh estén instalados
+# Verificar que dialog, ssh y sshpass estén instalados
 # ============================================================================
 check_dependencies() {
     if ! command -v dialog &> /dev/null; then
@@ -25,6 +26,12 @@ check_dependencies() {
     if ! command -v ssh &> /dev/null; then
         echo "Error: 'ssh' is not installed."
         echo "Install: sudo pacman -S openssh"
+        exit 1
+    fi
+    
+    if ! command -v sshpass &> /dev/null; then
+        echo "Error: 'sshpass' is not installed."
+        echo "Install: sudo pacman -S sshpass"
         exit 1
     fi
 }
@@ -42,7 +49,22 @@ execute_local_script_remote() {
     
     [ ! -f "$script_path" ] && echo "ERROR: Script not found: $script_path" && return 1
     
-    ssh -o ConnectTimeout=5 "${SSH_USER}@${host}" "bash -s $args" < "$script_path" 2>&1
+    # Detectar si es Windows o Linux
+    local os_type=$(grep "$host" "$CONFIG_FILE" | cut -d'|' -f3)
+    
+    if [ "$os_type" = "windows" ]; then
+        # Para Windows: enviar script PowerShell por stdin
+        if [[ "$script_path" == *.ps1 ]]; then
+            # Script PowerShell: enviarlo por stdin a powershell -Command -
+            sshpass -p "$WINDOWS_PASS" ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no "${WINDOWS_USER}@${host}" "powershell -Command -" < "$script_path" 2>&1
+        else
+            # Comando directo
+            sshpass -p "$WINDOWS_PASS" ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no "${WINDOWS_USER}@${host}" "powershell -Command \"$args\"" 2>&1
+        fi
+    else
+        # Para Linux: SSH normal
+        ssh -o ConnectTimeout=5 "${SSH_USER}@${host}" "bash -s $args" < "$script_path" 2>&1
+    fi
 }
 
 # ============================================================================
@@ -51,7 +73,19 @@ execute_local_script_remote() {
 # $2: Comando a ejecutar
 # ============================================================================
 ssh_exec() {
-    ssh -o ConnectTimeout=5 "${SSH_USER}@$1" "$2" 2>&1
+    local host=$1
+    local command=$2
+    
+    # Detectar si es Windows o Linux
+    local os_type=$(grep "$host" "$CONFIG_FILE" | cut -d'|' -f3)
+    
+    if [ "$os_type" = "windows" ]; then
+        # Para Windows: usar sshpass con PowerShell
+        sshpass -p "$WINDOWS_PASS" ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no "${WINDOWS_USER}@${host}" "powershell -Command \"$command\"" 2>&1
+    else
+        # Para Linux: SSH normal
+        ssh -o ConnectTimeout=5 "${SSH_USER}@${host}" "$command" 2>&1
+    fi
 }
 
 # ============================================================================
@@ -75,23 +109,15 @@ get_selected_ips() {
     local ips=()
     
     if [[ "$selected_ips" == "ALL" ]]; then
-        # Usuario seleccionó "ALL" - obtener todos los hosts
         while IFS='|' read -r hostname ip os_type; do
-            # Filtrar por OS si se especificó
             [ -n "$filter_os" ] && [ "$os_type" != "$filter_os" ] && continue
-            
-            # Solo añadir si está online
             check_host_online "$ip" && ips+=("$ip")
         done < "$CONFIG_FILE"
     else
-        # Usuario seleccionó IPs específicas
         for selected_ip in $selected_ips; do
             while IFS='|' read -r hostname ip os_type; do
                 if [[ "$ip" == "$selected_ip" ]]; then
-                    # Filtrar por OS si se especificó
                     [ -n "$filter_os" ] && [ "$os_type" != "$filter_os" ] && continue
-                    
-                    # Solo añadir si está online
                     check_host_online "$ip" && ips+=("$ip")
                     break
                 fi
@@ -111,7 +137,6 @@ select_hosts() {
     
     local options=("ALL" "Execute on all hosts" OFF)
     
-    # Leer todos los hosts y verificar estado
     while IFS='|' read -r hostname ip os_type; do
         local status="●OFFLINE"
         check_host_online "$ip" && status="✓ONLINE"
@@ -141,7 +166,6 @@ select_hosts_by_os() {
     local host_found=0
     
     while IFS='|' read -r hostname ip os_type; do
-        # Solo procesar hosts del OS especificado
         [ "$os_type" != "$filter_os" ] && continue
         
         host_found=1
@@ -277,23 +301,43 @@ execute_operation() {
     
     local script_path script_args confirm_msg
     
+    # Detectar OS del primer host para determinar script
+    local first_ip=${ips[0]}
+    local os_type=$(grep "$first_ip" "$CONFIG_FILE" | cut -d'|' -f3)
+    
     case $operation in
         reboot)
-            script_path="$LOCAL_SCRIPTS_DIR/linux/reboot.sh"
+            if [ "$os_type" = "windows" ]; then
+                script_path="$LOCAL_SCRIPTS_DIR/windows/reboot.ps1"
+            else
+                script_path="$LOCAL_SCRIPTS_DIR/linux/reboot.sh"
+            fi
             confirm_msg="REBOOT ${#ips[@]} system(s)?\n\nIPs: ${ips[*]}\n\nAre you sure?"
             ;;
         shutdown)
-            script_path="$LOCAL_SCRIPTS_DIR/linux/shutdown.sh"
+            if [ "$os_type" = "windows" ]; then
+                script_path="$LOCAL_SCRIPTS_DIR/windows/shutdown.ps1"
+            else
+                script_path="$LOCAL_SCRIPTS_DIR/linux/shutdown.sh"
+            fi
             confirm_msg="SHUTDOWN ${#ips[@]} system(s)?\n\nIPs: ${ips[*]}\n\nAre you sure?"
             ;;
         update)
-            script_path="$LOCAL_SCRIPTS_DIR/linux/update.sh"
+            if [ "$os_type" = "windows" ]; then
+                script_path="$LOCAL_SCRIPTS_DIR/windows/update.ps1"
+            else
+                script_path="$LOCAL_SCRIPTS_DIR/linux/update.sh"
+            fi
             confirm_msg="Update ${#ips[@]} system(s)?\n\nIPs: ${ips[*]}\n\nContinue?"
             ;;
         restart_service)
             SERVICE=$(dialog --stdout --inputbox "Service name:" 10 50)
             [ -z "$SERVICE" ] && return
-            script_path="$LOCAL_SCRIPTS_DIR/linux/restart_service.sh"
+            if [ "$os_type" = "windows" ]; then
+                script_path="$LOCAL_SCRIPTS_DIR/windows/restart_service.ps1"
+            else
+                script_path="$LOCAL_SCRIPTS_DIR/linux/restart_service.sh"
+            fi
             script_args="$SERVICE"
             confirm_msg="Restart '$SERVICE' on ${#ips[@]} system(s)?\n\nIPs: ${ips[*]}"
             ;;
@@ -333,20 +377,43 @@ execute_monitoring() {
     
     local command
     
-    case $monitor_type in
-        cpu)
-            command="top -bn1 | grep 'Cpu(s)' | awk '{print \"CPU: \" 100-\$8 \"%\"}'"
-            ;;
-        memory)
-            command="free -h | grep Mem | awk '{print \"Total: \"\$2\" | Used: \"\$3\" | Free: \"\$4}'"
-            ;;
-        disk)
-            command="df -h / | tail -1 | awk '{print \"Size: \"\$2\" | Used: \"\$3\" | Free: \"\$4\" | Usage: \"\$5}'"
-            ;;
-        sysinfo)
-            command="echo \"Host: \$(hostname)\"; echo \"IP: \$(hostname -I | awk '{print \$1}')\"; echo \"Kernel: \$(uname -r)\"; echo \"Uptime: \$(uptime -p 2>/dev/null || uptime)\""
-            ;;
-    esac
+    # Detectar si hay hosts Windows o Linux
+    local first_ip=${ips[0]}
+    local os_type=$(grep "$first_ip" "$CONFIG_FILE" | cut -d'|' -f3)
+    
+    if [ "$os_type" = "windows" ]; then
+        # Comandos para Windows
+        case $monitor_type in
+            cpu)
+                command="Get-CimInstance Win32_Processor | Select-Object -ExpandProperty LoadPercentage | ForEach-Object { Write-Host \"CPU: \$_\%\" }"
+                ;;
+            memory)
+                command="\$os = Get-CimInstance Win32_OperatingSystem; \$total = [math]::Round(\$os.TotalVisibleMemorySize/1MB, 2); \$free = [math]::Round(\$os.FreePhysicalMemory/1MB, 2); \$used = \$total - \$free; Write-Host \"Total: \${total}GB | Used: \${used}GB | Free: \${free}GB\""
+                ;;
+            disk)
+                command="\$disk = Get-PSDrive C | Select-Object Used,Free; \$total = [math]::Round((\$disk.Used + \$disk.Free)/1GB, 2); \$used = [math]::Round(\$disk.Used/1GB, 2); \$free = [math]::Round(\$disk.Free/1GB, 2); \$percent = [math]::Round((\$used/\$total)*100, 0); Write-Host \"Size: \${total}GB | Used: \${used}GB | Free: \${free}GB | Usage: \${percent}%\""
+                ;;
+            sysinfo)
+                command="\$hostname = hostname; \$ip = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object {!\$_.IPAddress.StartsWith('127')} | Select-Object -First 1).IPAddress; \$os = (Get-CimInstance Win32_OperatingSystem).Caption; \$uptime = (Get-CimInstance Win32_OperatingSystem).LastBootUpTime; Write-Host \"Host: \$hostname\"; Write-Host \"IP: \$ip\"; Write-Host \"OS: \$os\"; Write-Host \"Last Boot: \$uptime\""
+                ;;
+        esac
+    else
+        # Comandos para Linux
+        case $monitor_type in
+            cpu)
+                command="top -bn1 | grep 'Cpu(s)' | awk '{print \"CPU: \" 100-\$8 \"%\"}'"
+                ;;
+            memory)
+                command="free -h | grep Mem | awk '{print \"Total: \"\$2\" | Used: \"\$3\" | Free: \"\$4}'"
+                ;;
+            disk)
+                command="df -h / | tail -1 | awk '{print \"Size: \"\$2\" | Used: \"\$3\" | Free: \"\$4\" | Usage: \"\$5}'"
+                ;;
+            sysinfo)
+                command="echo \"Host: \$(hostname)\"; echo \"IP: \$(hostname -I | awk '{print \$1}')\"; echo \"Kernel: \$(uname -r)\"; echo \"Uptime: \$(uptime -p 2>/dev/null || uptime)\""
+                ;;
+        esac
+    fi
     
     local temp=$(mktemp)
     echo "=== Monitoring: $monitor_type ===" > "$temp"
@@ -377,7 +444,7 @@ execute_custom_command() {
         *) return ;;
     esac
     
-    local cmd=$(dialog --stdout --inputbox "Enter command (runs as root):" 10 60)
+    local cmd=$(dialog --stdout --inputbox "Enter command (runs as root/admin):" 10 60)
     [ -z "$cmd" ] && return
     
     select_hosts_by_os "$os" || return

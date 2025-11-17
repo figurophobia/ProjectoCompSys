@@ -22,3 +22,7 @@ ssh-copy-id root@192.168.56.20
 ssh root@192.168.56.20
 
 
+En windows, debemos instalar openssh-server, de las optional features, y asegurarnos de que el servicio se activa en automatico al inicio.
+Luego tenemos activar en el firewall una regla para hacer que ICMP funcione (esto es lo que hace el ping)
+
+Con eso, podemos simplemente usar sshpass para usar ssh pasandole la contraseña directamente
