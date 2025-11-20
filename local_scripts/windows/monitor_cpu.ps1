@@ -1,0 +1,1 @@
+Write-Host ("current cpu usage: {0:N2}%" -f (Get-Counter '\Processor(_Total)\% Processor Time').CounterSamples[0].CookedValue)
