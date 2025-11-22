@@ -34,3 +34,77 @@ CPU: 1.7%
 current cpu usage: 0.01%
 
 
+============================================================
+Timestamp: 2025-11-23 00:31:59 +0100
+Action: reboot_results
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 00:31:59 CET 2025
+Target IPs: 192.168.56.10
+
+>>> linux1 (192.168.56.10) [linux] <<<
+ssh: connect to host 192.168.56.10 port 22: Connection refused
+
+
+============================================================
+Timestamp: 2025-11-23 00:31:59 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 00:31:59 CET 2025
+Target IPs: 192.168.56.10
+
+>>> linux1 (192.168.56.10) [linux] <<<
+ssh: connect to host 192.168.56.10 port 22: Connection refused
+
+
+============================================================
+Timestamp: 2025-11-23 00:32:17 +0100
+Action: reboot_results
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 00:32:17 CET 2025
+Target IPs: 192.168.56.10
+
+>>> linux1 (192.168.56.10) [linux] <<<
+ssh: connect to host 192.168.56.10 port 22: Connection refused
+
+
+============================================================
+Timestamp: 2025-11-23 00:32:17 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 00:32:17 CET 2025
+Target IPs: 192.168.56.10
+
+>>> linux1 (192.168.56.10) [linux] <<<
+ssh: connect to host 192.168.56.10 port 22: Connection refused
+
+
+============================================================
+Timestamp: 2025-11-23 00:38:04 +0100
+Action: reboot_results
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 00:38:04 CET 2025
+Target IPs: 192.168.56.20
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 00:38:04 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 00:38:04 CET 2025
+Target IPs: 192.168.56.20
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+

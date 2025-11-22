@@ -13,6 +13,14 @@ WINDOWS_USER="Administrator"
 WINDOWS_PASS="1QAZxsw2"
 LOG_DIR="logs"
 
+# --- VARIABLES PARA BACKUP ---
+LINUX_BACKUP_DIR="backups/linux"
+WINDOWS_BACKUP_DIR="backups/windows"
+LINUX_BACKUP_SOURCES="/etc /var/log /home"
+WINDOWS_BACKUP_SOURCES='C:\Users\Administrator\Documents C:\inetpub'
+
+mkdir -p "$LINUX_BACKUP_DIR" "$WINDOWS_BACKUP_DIR"
+
 
 # ============================================================================
 # Verificar que dialog, ssh y sshpass estén instalados
@@ -242,17 +250,18 @@ main_menu() {
 system_operations_menu() {
     while true; do
         CHOICE=$(dialog --stdout --title "System Operations" \
-            --menu "Select operation:" 15 60 4 \
+            --menu "Select operation:" 15 60 5 \
             1 "Reboot System(s)" \
             2 "Shutdown System(s)" \
             3 "Update System(s)" \
-            4 "Back")
+            4 "Backup(s)" \
+            5 "Back")
         
         case $CHOICE in
             1) execute_operation "reboot" ;;
             2) execute_operation "shutdown" ;;
             3) execute_operation "update" ;;
-            4) return ;;
+            4) execute_operation "backup" ;;
             *) return ;;
         esac
     done
@@ -318,11 +327,140 @@ check_all_hosts_status() {
 }
 
 # ============================================================================
+# FUNCIÓN PARA BACKUPS
+# ============================================================================
+execute_backup_operation() {
+    
+    # Declaramos las variables
+    local os_type backup_sources backup_dir os
+    local script_path_linux script_path_windows remote_temp_file
+
+    os_type=$(dialog --stdout --title "OS Type" --menu "Select OS:" 12 40 2 1 "Linux (LVM Snapshot)" 2 "Windows")
+    
+    case $os_type in
+        1) os="linux" ;;
+        2) os="windows" ;;
+        *) return ;;
+    esac
+
+    # 2. Mostrar menú SOLO de hosts del OS seleccionado
+    select_hosts_by_os "$os" || return
+
+    local ips=($(get_selected_ips "$SELECTED_IPS"))
+    [ ${#ips[@]} -eq 0 ] && dialog --msgbox "No $os hosts ONLINE!" 8 50 && return
+
+    # 3. Configuración según OS
+    if [ "$os" == "linux" ]; then
+        script_path_linux="$LOCAL_SCRIPTS_DIR/linux/backup.sh"
+        
+        # Cargamos las fuentes TAL CUAL vienen de la config (ej: "/etc /home")
+        backup_sources="$LINUX_BACKUP_SOURCES"
+        backup_dir="$LINUX_BACKUP_DIR"
+        
+        [ ! -f "$script_path_linux" ] && dialog --msgbox "ERROR: Script not found!\n\n$script_path_linux" 10 60 && return
+    else
+        script_path_windows="$LOCAL_SCRIPTS_DIR/windows/backup.ps1"
+        backup_sources="$WINDOWS_BACKUP_SOURCES"
+        backup_dir="$WINDOWS_BACKUP_DIR"
+        [ ! -f "$script_path_windows" ] && dialog --msgbox "ERROR: Script not found!\n\n$script_path_windows" 10 60 && return
+    fi
+
+    # 3. Confirmar
+    local confirm_msg="BACKUP de ${#ips[@]} ($os) system(s)?\n
+    IPs: ${ips[*]}\n
+    Fuentes: $backup_sources\n
+    Destino: $backup_dir\n
+    Nota: Linux usará LVM Snapshots."
+    
+    dialog --yesno "$confirm_msg" 15 70 || return
+
+    # 4. Ejecutar backups con progreso
+    local temp=$(mktemp)
+    echo "=== Operation: BACKUP ($os) ===" > "$temp"
+    echo "Date: $(date)" >> "$temp"
+    echo "Target IPs: ${ips[*]}" >> "$temp"
+    echo "" >> "$temp"
+
+    local total_hosts=${#ips[@]}
+    local counter=0
+
+    (
+    for ip in "${ips[@]}"; do
+        percent=$(( (counter * 100) / total_hosts ))
+
+        echo "XXX"
+        echo "Procesando backup ($os) de $ip ($((counter+1))/$total_hosts)..."
+        echo "XXX"
+        echo $percent
+
+        echo ">>> Host: $ip <<<" >> "$temp"
+
+        if [ "$os" == "linux" ]; then
+            # ---- Backup Linux (LVM SNAPSHOT) ----
+            
+            # Limpieza de rutas: convierte "/etc /home" en "etc home" para que funcione dentro del snapshot
+            local clean_sources=$(echo "$backup_sources" | sed -e 's|^/||' -e 's| /| |g')
+
+            # Ejecutamos pasando la variable limpia
+            bash "$script_path_linux" "$ip" "$clean_sources" "$backup_dir" >> "$temp" 2>&1
+
+        elif [ "$os" == "windows" ]; then
+            # ---- Backup Windows ----
+            # 1. Copiar el script al servidor Windows
+            REMOTE_SCRIPT_PATH="C:\\Windows\\Temp\\backup_temp.ps1"
+            echo "Copiando script de backup a $ip..." >> "$temp"
+            sshpass -p "$WINDOWS_PASS" scp -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "$script_path_windows" "${WINDOWS_USER}@${ip}:${REMOTE_SCRIPT_PATH}" >> "$temp" 2>&1
+            
+            if [ $? -ne 0 ]; then
+                echo "ERROR: No se pudo copiar el script al servidor Windows" >> "$temp"
+                continue
+            fi
+            
+            # 2. Ejecutar el script remotamente
+            echo "Ejecutando backup en $ip..." >> "$temp"
+            REMOTE_FILE_PATH=$(sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" \
+                "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File '${REMOTE_SCRIPT_PATH}' -Paths '${backup_sources}' -DestFolder 'C:\\Windows\\Temp'" 2>&1 | tail -n 1)
+
+            REMOTE_FILE_PATH=$(echo "$REMOTE_FILE_PATH" | tr -d '\r')
+
+            if [[ -z "$REMOTE_FILE_PATH" || "$REMOTE_FILE_PATH" != *".tar.gz"* ]]; then
+                echo "ERROR: No se generó el archivo remoto. Salida: $REMOTE_FILE_PATH" >> "$temp"
+            else
+                # 3. Obtener hostname de Windows
+                WIN_HOSTNAME=$(sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" "hostname" 2>&1 | tr -d '\r\n')
+                local_file_name="backup-WIN-${WIN_HOSTNAME:-$ip}-$(date +%Y-%m-%d_%H%M).tar.gz"
+                
+                # 4. Descargar el backup usando scp con sshpass
+                echo "Descargando backup de $ip..." >> "$temp"
+                sshpass -p "$WINDOWS_PASS" scp -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}:${REMOTE_FILE_PATH}" "$backup_dir/$local_file_name" >> "$temp" 2>&1
+                
+                # 5. Limpiar archivos temporales en Windows (script y backup)
+                sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" "del '${REMOTE_FILE_PATH}' '${REMOTE_SCRIPT_PATH}'" >> "$temp" 2>&1
+                
+                echo "Backup de $ip completado: $local_file_name" >> "$temp"
+            fi
+        fi
+
+        echo "" >> "$temp"
+        ((counter++))
+    done
+    ) | dialog --title "Pulling Backups..." --gauge "Iniciando..." 10 70 0
+
+    dialog --title "Backup Results" --textbox "$temp" 22 70
+    rm -f "$temp"
+}
+
+# ============================================================================
 # Ejecutar operación del sistema (reboot, shutdown, update)
 # $1: Tipo de operación
 # ============================================================================
 execute_operation() {
     local operation=$1
+    
+    if [ "$operation" == "backup" ]; then
+        execute_backup_operation
+        return
+    fi
     
     select_hosts || return
     
