@@ -1,110 +1,345 @@
 ============================================================
-Timestamp: 2025-11-21 00:10:34 +0100
+Timestamp: 2025-11-23 03:23:16 +0100
 Action: monitor_cpu
 ------------------------------------------------------------
 === Monitoring: cpu ===
-Date: vie 21 nov 2025 00:10:30 CET
-IPs: 192.168.56.10 192.168.56.20 192.168.56.30
+Date: dom 23 nov 2025 03:23:11 CET
+IPs: 192.168.56.40
 
->>> linux1 (192.168.56.10) [linux] <<<
-CPU: 3.2%
-
->>> linux2 (192.168.56.20) [linux] <<<
-CPU: 100%
-
->>> windows1 (192.168.56.30) [windows] <<<
+>>> windows2 (192.168.56.40) [windows] <<<
 current cpu usage: 0.01%
 
 
 ============================================================
-Timestamp: 2025-11-21 00:10:41 +0100
-Action: monitor_cpu
+Timestamp: 2025-11-23 03:23:29 +0100
+Action: monitor_events
 ------------------------------------------------------------
-=== Monitoring: cpu ===
-Date: vie 21 nov 2025 00:10:38 CET
-IPs: 192.168.56.10 192.168.56.20 192.168.56.30
+=== Monitoring: events ===
+Date: dom 23 nov 2025 03:23:25 CET
+IPs: 192.168.56.40
 
->>> linux1 (192.168.56.10) [linux] <<<
-CPU: 3%
+>>> windows2 (192.168.56.40) [windows] <<<
+=== Windows Event Logs (last 100 entries) ===
+-- System Log --
+11/22/2025 18:22:54 [Information] Service Control Manager - The Capability Access Manager Service service entered the stopped state.
+11/22/2025 18:22:49 [Information] Service Control Manager - The Client License Service (ClipSVC) service entered the stopped state.
+11/22/2025 18:22:18 [Information] Service Control Manager - The Windows Modules Installer service entered the stopped state.
+11/22/2025 18:21:12 [Information] Service Control Manager - The Windows Biometric Service service entered the stopped state.
+11/22/2025 18:20:51 [Information] Service Control Manager - The Windows Insider Service service entered the stopped state.
+11/22/2025 18:20:51 [Information] Service Control Manager - The Software Protection service entered the stopped state.
+11/22/2025 18:20:49 [Information] Service Control Manager - The Windows Update Medic Service service entered the stopped state.
+11/22/2025 18:20:29 [Warning] User32 - The reason supplied by user WIN-1CCGK8QMHGU\Administrator for the last unexpected shutdown of this computer is: Other (Unplanned)  Reason Code: 0xa000000  Problem ID:   Bugcheck String:   Comment:  
+11/22/2025 18:20:27 [Information] Microsoft-Windows-WindowsUpdateClient - Windows Update started downloading an update.
+11/22/2025 18:20:21 [Information] Service Control Manager - The Storage Service service entered the running state.
+11/22/2025 18:20:21 [Information] Service Control Manager - The Delivery Optimization service entered the running state.
+11/22/2025 18:20:18 [Information] Microsoft-Windows-Kernel-General - The access history in hive \SystemRoot\System32\config\DRIVERS was cleared updating 20089 keys and creating 879 modified pages.
+11/22/2025 18:20:07 [Information] Service Control Manager - The Device Install Service service entered the stopped state.
+11/22/2025 18:19:52 [Information] Service Control Manager - The Windows Modules Installer service entered the running state.
+11/22/2025 18:19:50 [Information] Service Control Manager - The Windows Insider Service service entered the running state.
+11/22/2025 18:19:49 [Information] Service Control Manager - The Windows Update Medic Service service entered the running state.
+11/22/2025 18:19:48 [Information] Service Control Manager - The Portable Device Enumerator Service service entered the stopped state.
+11/22/2025 18:19:45 [Information] Service Control Manager - The Windows Modules Installer service entered the stopped state.
+11/22/2025 18:19:45 [Information] Service Control Manager - The Downloaded Maps Manager service entered the stopped state.
+11/22/2025 18:19:37 [Information] Service Control Manager - The User Access Logging Service service entered the running state.
+11/22/2025 18:19:35 [Information] Service Control Manager - The Software Protection service entered the running state.
+11/22/2025 18:19:35 [Information] Service Control Manager - The Distributed Transaction Coordinator service entered the running state.
+11/22/2025 18:19:35 [Information] Service Control Manager - The Downloaded Maps Manager service entered the running state.
+11/22/2025 18:19:34 [Information] Service Control Manager - The Diagnostic Policy Service service entered the running state.
+11/22/2025 18:19:20 [Information] Service Control Manager - The Windows Update Medic Service service entered the stopped state.
+11/22/2025 18:18:35 [Information] Service Control Manager - The Device Setup Manager service entered the stopped state.
+11/22/2025 18:18:23 [Information] Service Control Manager - The Software Protection service entered the stopped state.
+11/22/2025 18:18:20 [Information] Service Control Manager - The Windows Update Medic Service service entered the running state.
+11/22/2025 18:18:20 [Information] Service Control Manager - The start type of the Windows Update service was changed from demand start to auto start.
+11/22/2025 18:17:54 [Information] Service Control Manager - The Windows Biometric Service service entered the running state.
+11/22/2025 18:17:54 [Information] Service Control Manager - The Capability Access Manager Service service entered the running state.
+11/22/2025 18:17:54 [Information] Service Control Manager - The Update Orchestrator Service service entered the running state.
+11/22/2025 18:17:53 [Information] Service Control Manager - The AVCTP service service entered the running state.
+11/22/2025 18:17:50 [Information] Microsoft-Windows-Kernel-General - The system time has changed to ?2025?-?11?-?23T02:17:50.808567300Z from ?2025?-?11?-?23T02:17:50.803914400Z.  Change Reason: An application or system component changed the time. Process: '\Device\HarddiskVolume2\Windows\System32\svchost.exe' (PID 2544).
+11/22/2025 18:17:50 [Information] Microsoft-Windows-Time-Service - The time service is now synchronizing the system time with the time source time.windows.com,0x8 (ntp.m|0x8|0.0.0.0:123->20.101.57.9:123) with reference id 154756372. Current local stratum number is 4.
+11/22/2025 18:17:50 [Warning] Microsoft-Windows-Time-Service - The time service has set the time with offset 32398 seconds.
+11/22/2025 18:17:50 [Information] Microsoft-Windows-Kernel-General - The system time has changed to ?2025?-?11?-?23T02:17:50.803914400Z from ?2025?-?11?-?23T11:17:48.955994400Z.  Change Reason: An application or system component changed the time. Process: '\Device\HarddiskVolume2\Windows\System32\svchost.exe' (PID 2544).
+11/23/2025 03:17:47 [Information] Service Control Manager - The Connected Devices Platform Service service entered the running state.
+11/23/2025 03:17:46 [Information] Service Control Manager - The Touch Keyboard and Handwriting Panel Service service entered the running state.
+11/23/2025 03:17:46 [Information] Service Control Manager - The Windows Push Notifications User Service_3755b service entered the running state.
+11/23/2025 03:17:46 [Information] Service Control Manager - The Connected Devices Platform User Service_3755b service entered the running state.
+11/23/2025 03:17:46 [Information] Microsoft-Windows-Winlogon - User Logon Notification for Customer Experience Improvement Program
+11/23/2025 03:17:45 [Information] Service Control Manager - The CNG Key Isolation service entered the running state.
+11/23/2025 03:17:44 [Information] Service Control Manager - The Microsoft Account Sign-in Assistant service entered the running state.
+11/23/2025 03:17:42 [Information] Service Control Manager - The Windows Modules Installer service entered the running state.
+11/23/2025 03:17:39 [Information] Service Control Manager - The AppX Deployment Service (AppXSVC) service entered the running state.
+11/23/2025 03:17:39 [Information] Service Control Manager - The State Repository Service service entered the running state.
+11/23/2025 03:17:39 [Information] Service Control Manager - The Web Account Manager service entered the running state.
+11/23/2025 03:17:39 [Information] Service Control Manager - The Windows Update service entered the running state.
+11/23/2025 03:17:36 [Information] Microsoft-Windows-Time-Service - The time provider NtpClient is currently receiving valid time data from time.windows.com,0x8 (ntp.m|0x8|0.0.0.0:123->20.101.57.9:123).
+11/23/2025 03:17:35 [Information] Service Control Manager - The Device Install Service service entered the running state.
+11/23/2025 03:17:35 [Information] Service Control Manager - The Client License Service (ClipSVC) service entered the running state.
+11/23/2025 03:17:35 [Information] Service Control Manager - The Windows License Manager Service service entered the running state.
+11/23/2025 03:17:34 [Information] Microsoft-Windows-Time-Service - The time provider NtpClient is currently receiving valid time data from time.windows.com,0x8 (ntp.m|0x8|0.0.0.0:123->20.101.57.9:123).
+11/23/2025 03:17:33 [Information] Service Control Manager - The DiagTrack service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The Remote Access Connection Manager service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The WinRM service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The sshd service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The Software Protection service entered the running state.
+11/23/2025 03:17:33 [Information] Microsoft-Windows-WinRM - The WinRM service is listening for WS-Management requests.    User Action   Use the following command to see the specific IPs on which WinRM is listening:    winrm enumerate winrm/config/listener
+11/23/2025 03:17:33 [Information] Service Control Manager - The Windows Push Notifications System Service service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The WinDefend service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The iphlpsvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The following boot-start or system-start driver(s) did not load:  dam
+11/23/2025 03:17:32 [Information] Service Control Manager - The LanmanServer service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The W32Time service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The tapisrv service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The TrkWks service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The WLMS service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The CryptSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The SysMain service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The RemoteRegistry service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The SstpSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Winmgmt service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Spooler service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The SamSs service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The mpssvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The BFE service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The NcbService service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The UserManager service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The LanmanWorkstation service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The DsmSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The netprofm service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Wcmsvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The FontCache service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The WinHttpAutoProxySvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Schedule service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The NlaSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The ShellHWDetection service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The lmhosts service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Dnscache service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Dhcp service entered the running state.
+11/23/2025 03:17:32 [Information] Microsoft-Windows-DHCPv6-Client - DHCPv6 client service is started
+11/23/2025 03:17:32 [Information] Service Control Manager - The ProfSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Microsoft-Windows-Dhcp-Client - DHCPv4 client registered for shutdown notification
+11/23/2025 03:17:32 [Information] Microsoft-Windows-Dhcp-Client - DHCPv4 client service is started
+11/23/2025 03:17:32 [Information] Service Control Manager - The SENS service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The gpsvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The nsi service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The EventSystem service entered the running state.
+
+-- Application Log --
+
+
+============================================================
+Timestamp: 2025-11-23 03:25:12 +0100
+Action: monitor_events
+------------------------------------------------------------
+=== Monitoring: events ===
+Date: dom 23 nov 2025 03:25:07 CET
+IPs: 192.168.56.20 192.168.56.40
 
 >>> linux2 (192.168.56.20) [linux] <<<
-CPU: 1.7%
+=== Linux System Logs (last 100 lines) ===
+Nov 23 02:24:34 asklab snapd[635]: overlord.go:288: Acquiring state lock file
+Nov 23 02:24:34 asklab snapd[635]: overlord.go:293: Acquired state lock file
+Nov 23 02:24:34 asklab snapd[635]: daemon.go:276: started snapd/2.72 (series 16; classic) ubuntu/22.04 (amd64) linux/5.15.0-83-generic.
+Nov 23 02:24:34 asklab kernel: loop5: detected capacity change from 0 to 8
+Nov 23 02:24:34 asklab snapd[635]: daemon.go:370: adjusting startup timeout by 45s (pessimistic estimate of 30s plus 5s per snap)
+Nov 23 02:24:34 asklab snapd[635]: backends.go:70: AppArmor status: apparmor is enabled and all features are available (using snapd provided apparmor_parser)
+Nov 23 02:24:34 asklab snapd[635]: backend.go:141: delegating reload of snap-confine profiles to system snap security profiles setup
+Nov 23 02:24:34 asklab systemd[1]: Started Snap Daemon.
+Nov 23 02:24:34 asklab dbus-daemon[625]: [system] Activating via systemd: service name='org.freedesktop.timedate1' unit='dbus-org.freedesktop.timedate1.service' requested by ':1.11' (uid=0 pid=635 comm="/usr/lib/snapd/snapd " label="unconfined")
+Nov 23 02:24:34 asklab systemd[1]: Starting Wait until snapd is fully seeded...
+Nov 23 02:24:34 asklab systemd[1]: tmp-syscheck\x2dmountpoint\x2d2544482108.mount: Deactivated successfully.
+Nov 23 02:24:34 asklab systemd[1]: Starting Time & Date Service...
+Nov 23 02:24:34 asklab dbus-daemon[625]: [system] Successfully activated service 'org.freedesktop.timedate1'
+Nov 23 02:24:34 asklab systemd[1]: Started Time & Date Service.
+Nov 23 02:24:34 asklab systemd[1]: Finished Wait until snapd is fully seeded.
+Nov 23 02:24:34 asklab systemd[1]: Condition check resulted in Auto import assertions from block devices being skipped.
+Nov 23 02:24:34 asklab lxd.activate[634]: => Starting LXD activation
+Nov 23 02:24:34 asklab lxd.activate[634]: ==> Loading snap configuration
+Nov 23 02:24:34 asklab lxd.activate[634]: ==> Checking for socket activation support
+Nov 23 02:24:34 asklab lxd.activate[634]: ==> Setting LXD socket ownership
+Nov 23 02:24:34 asklab lxd.activate[634]: ==> Setting LXD user socket ownership
+Nov 23 02:24:34 asklab lxd.activate[634]: ==> LXD never started on this system, no need to start it now
+Nov 23 02:24:34 asklab systemd[1]: snap.lxd.activate.service: Deactivated successfully.
+Nov 23 02:24:34 asklab systemd[1]: Finished Service for snap application lxd.activate.
+Nov 23 02:24:34 asklab systemd[1]: snap.lxd.activate.service: Consumed 2.023s CPU time.
+Nov 23 02:24:34 asklab systemd-timesyncd[565]: Network configuration changed, trying to establish connection.
+Nov 23 02:24:35 asklab systemd[1]: dmesg.service: Deactivated successfully.
+Nov 23 02:24:44 asklab systemd-networkd-wait-online[598]: managing: enp0s8
+Nov 23 02:24:44 asklab systemd-networkd-wait-online[598]: managing: enp0s3
+Nov 23 02:24:44 asklab systemd-timesyncd[565]: Network configuration changed, trying to establish connection.
+Nov 23 02:24:44 asklab systemd[1]: Finished Wait for Network to be Configured.
+Nov 23 02:24:44 asklab systemd[1]: Reached target Network is Online.
+Nov 23 02:24:44 asklab systemd[1]: Started Download data for packages that failed at package install time.
+Nov 23 02:24:44 asklab systemd[1]: Started Check to see whether there is a new version of Ubuntu available.
+Nov 23 02:24:44 asklab systemd[1]: Reached target Timer Units.
+Nov 23 02:24:44 asklab systemd[1]: Condition check resulted in Login to default iSCSI targets being skipped.
+Nov 23 02:24:44 asklab systemd[1]: Reached target Preparation for Remote File Systems.
+Nov 23 02:24:44 asklab systemd[1]: Reached target Remote File Systems.
+Nov 23 02:24:44 asklab systemd[1]: Starting LSB: automatic crash report generation...
+Nov 23 02:24:44 asklab systemd[1]: Finished Availability of block devices.
+Nov 23 02:24:44 asklab systemd[1]: Started Regular background program processing daemon.
+Nov 23 02:24:44 asklab systemd[1]: Condition check resulted in Pollinate to seed the pseudo random number generator being skipped.
+Nov 23 02:24:44 asklab systemd[1]: Starting OpenBSD Secure Shell server...
+Nov 23 02:24:44 asklab cron[861]: (CRON) INFO (pidfile fd = 3)
+Nov 23 02:24:44 asklab systemd[1]: Starting Permit User Sessions...
+Nov 23 02:24:44 asklab systemd[1]: Condition check resulted in Ubuntu Pro Background Auto Attach being skipped.
+Nov 23 02:24:44 asklab cron[861]: (CRON) INFO (Running @reboot jobs)
+Nov 23 02:24:44 asklab systemd[1]: Finished Permit User Sessions.
+Nov 23 02:24:44 asklab systemd[1]: Starting Hold until boot process finishes up...
+Nov 23 02:24:44 asklab systemd[1]: Starting Terminate Plymouth Boot Screen...
+Nov 23 02:24:44 asklab systemd[1]: Finished Hold until boot process finishes up.
+Nov 23 02:24:44 asklab systemd[1]: Starting Set console scheme...
+Nov 23 02:24:44 asklab systemd[1]: Finished Set console scheme.
+Nov 23 02:24:44 asklab apport[860]:  * Starting automatic crash report generation: apport
+Nov 23 02:24:44 asklab systemd[1]: Created slice Slice /system/getty.
+Nov 23 02:24:44 asklab systemd[1]: Started Getty on tty1.
+Nov 23 02:24:44 asklab systemd[1]: Reached target Login Prompts.
+Nov 23 02:24:44 asklab systemd[1]: Finished Terminate Plymouth Boot Screen.
+Nov 23 02:24:44 asklab apport[860]:    ...done.
+Nov 23 02:24:44 asklab systemd[1]: Started LSB: automatic crash report generation.
+Nov 23 02:24:44 asklab sshd[876]: Server listening on 0.0.0.0 port 22.
+Nov 23 02:24:44 asklab sshd[876]: Server listening on :: port 22.
+Nov 23 02:24:44 asklab systemd[1]: Started OpenBSD Secure Shell server.
+Nov 23 02:24:44 asklab systemd[1]: Reached target Multi-User System.
+Nov 23 02:24:44 asklab systemd[1]: Reached target Graphical Interface.
+Nov 23 02:24:44 asklab systemd[1]: Starting Record Runlevel Change in UTMP...
+Nov 23 02:24:44 asklab systemd[1]: systemd-update-utmp-runlevel.service: Deactivated successfully.
+Nov 23 02:24:44 asklab systemd[1]: Finished Record Runlevel Change in UTMP.
+Nov 23 02:24:46 asklab systemd-resolved[599]: Clock change detected. Flushing caches.
+Nov 23 02:24:46 asklab systemd-timesyncd[565]: Initial synchronization to time server 185.125.190.57:123 (ntp.ubuntu.com).
+Nov 23 02:24:46 asklab systemd[1]: Startup finished in 3.243s (kernel) + 14.928s (userspace) = 18.172s.
+Nov 23 02:25:02 asklab systemd[1]: systemd-fsckd.service: Deactivated successfully.
+Nov 23 02:25:07 asklab sshd[878]: Accepted publickey for root from 192.168.56.1 port 56140 ssh2: RSA SHA256:1ZlqMbEsXLoGPoaewBRbGA31iQcY8kpj9VveMUhwSCw
+Nov 23 02:25:07 asklab sshd[878]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 02:25:07 asklab systemd[1]: Created slice User Slice of UID 0.
+Nov 23 02:25:07 asklab systemd[1]: Starting User Runtime Directory /run/user/0...
+Nov 23 02:25:07 asklab systemd-logind[636]: New session 1 of user root.
+Nov 23 02:25:07 asklab systemd[1]: Finished User Runtime Directory /run/user/0.
+Nov 23 02:25:07 asklab systemd[1]: Starting User Manager for UID 0...
+Nov 23 02:25:07 asklab systemd[881]: pam_unix(systemd-user:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 02:25:07 asklab systemd[881]: Queued start job for default target Main User Target.
+Nov 23 02:25:07 asklab systemd[881]: Created slice User Application Slice.
+Nov 23 02:25:07 asklab systemd[881]: Reached target Paths.
+Nov 23 02:25:07 asklab systemd[881]: Reached target Timers.
+Nov 23 02:25:07 asklab systemd[881]: Starting D-Bus User Message Bus Socket...
+Nov 23 02:25:07 asklab systemd[881]: Listening on GnuPG network certificate management daemon.
+Nov 23 02:25:07 asklab systemd[881]: Listening on GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Nov 23 02:25:07 asklab systemd[881]: Listening on GnuPG cryptographic agent and passphrase cache (restricted).
+Nov 23 02:25:07 asklab systemd[881]: Listening on GnuPG cryptographic agent (ssh-agent emulation).
+Nov 23 02:25:07 asklab systemd[881]: Listening on GnuPG cryptographic agent and passphrase cache.
+Nov 23 02:25:07 asklab systemd[881]: Listening on debconf communication socket.
+Nov 23 02:25:07 asklab systemd[881]: Listening on REST API socket for snapd user session agent.
+Nov 23 02:25:07 asklab systemd[1]: systemd-timedated.service: Deactivated successfully.
+Nov 23 02:25:07 asklab systemd[881]: Listening on D-Bus User Message Bus Socket.
+Nov 23 02:25:07 asklab systemd[881]: Reached target Sockets.
+Nov 23 02:25:07 asklab systemd[881]: Reached target Basic System.
+Nov 23 02:25:07 asklab systemd[881]: Reached target Main User Target.
+Nov 23 02:25:07 asklab systemd[881]: Startup finished in 82ms.
+Nov 23 02:25:07 asklab systemd[1]: Started User Manager for UID 0.
+Nov 23 02:25:07 asklab systemd[1]: Started Session 1 of User root.
 
->>> windows1 (192.168.56.30) [windows] <<<
-current cpu usage: 0.01%
+>>> windows2 (192.168.56.40) [windows] <<<
+=== Windows Event Logs (last 100 entries) ===
+-- System Log --
+11/22/2025 18:23:57 [Information] Service Control Manager - The Microsoft Account Sign-in Assistant service entered the stopped state.
+11/22/2025 18:22:54 [Information] Service Control Manager - The Capability Access Manager Service service entered the stopped state.
+11/22/2025 18:22:49 [Information] Service Control Manager - The Client License Service (ClipSVC) service entered the stopped state.
+11/22/2025 18:22:18 [Information] Service Control Manager - The Windows Modules Installer service entered the stopped state.
+11/22/2025 18:21:12 [Information] Service Control Manager - The Windows Biometric Service service entered the stopped state.
+11/22/2025 18:20:51 [Information] Service Control Manager - The Windows Insider Service service entered the stopped state.
+11/22/2025 18:20:51 [Information] Service Control Manager - The Software Protection service entered the stopped state.
+11/22/2025 18:20:49 [Information] Service Control Manager - The Windows Update Medic Service service entered the stopped state.
+11/22/2025 18:20:29 [Warning] User32 - The reason supplied by user WIN-1CCGK8QMHGU\Administrator for the last unexpected shutdown of this computer is: Other (Unplanned)  Reason Code: 0xa000000  Problem ID:   Bugcheck String:   Comment:  
+11/22/2025 18:20:27 [Information] Microsoft-Windows-WindowsUpdateClient - Windows Update started downloading an update.
+11/22/2025 18:20:21 [Information] Service Control Manager - The Storage Service service entered the running state.
+11/22/2025 18:20:21 [Information] Service Control Manager - The Delivery Optimization service entered the running state.
+11/22/2025 18:20:18 [Information] Microsoft-Windows-Kernel-General - The access history in hive \SystemRoot\System32\config\DRIVERS was cleared updating 20089 keys and creating 879 modified pages.
+11/22/2025 18:20:07 [Information] Service Control Manager - The Device Install Service service entered the stopped state.
+11/22/2025 18:19:52 [Information] Service Control Manager - The Windows Modules Installer service entered the running state.
+11/22/2025 18:19:50 [Information] Service Control Manager - The Windows Insider Service service entered the running state.
+11/22/2025 18:19:49 [Information] Service Control Manager - The Windows Update Medic Service service entered the running state.
+11/22/2025 18:19:48 [Information] Service Control Manager - The Portable Device Enumerator Service service entered the stopped state.
+11/22/2025 18:19:45 [Information] Service Control Manager - The Windows Modules Installer service entered the stopped state.
+11/22/2025 18:19:45 [Information] Service Control Manager - The Downloaded Maps Manager service entered the stopped state.
+11/22/2025 18:19:37 [Information] Service Control Manager - The User Access Logging Service service entered the running state.
+11/22/2025 18:19:35 [Information] Service Control Manager - The Software Protection service entered the running state.
+11/22/2025 18:19:35 [Information] Service Control Manager - The Distributed Transaction Coordinator service entered the running state.
+11/22/2025 18:19:35 [Information] Service Control Manager - The Downloaded Maps Manager service entered the running state.
+11/22/2025 18:19:34 [Information] Service Control Manager - The Diagnostic Policy Service service entered the running state.
+11/22/2025 18:19:20 [Information] Service Control Manager - The Windows Update Medic Service service entered the stopped state.
+11/22/2025 18:18:35 [Information] Service Control Manager - The Device Setup Manager service entered the stopped state.
+11/22/2025 18:18:23 [Information] Service Control Manager - The Software Protection service entered the stopped state.
+11/22/2025 18:18:20 [Information] Service Control Manager - The Windows Update Medic Service service entered the running state.
+11/22/2025 18:18:20 [Information] Service Control Manager - The start type of the Windows Update service was changed from demand start to auto start.
+11/22/2025 18:17:54 [Information] Service Control Manager - The Windows Biometric Service service entered the running state.
+11/22/2025 18:17:54 [Information] Service Control Manager - The Capability Access Manager Service service entered the running state.
+11/22/2025 18:17:54 [Information] Service Control Manager - The Update Orchestrator Service service entered the running state.
+11/22/2025 18:17:53 [Information] Service Control Manager - The AVCTP service service entered the running state.
+11/22/2025 18:17:50 [Information] Microsoft-Windows-Kernel-General - The system time has changed to ?2025?-?11?-?23T02:17:50.808567300Z from ?2025?-?11?-?23T02:17:50.803914400Z.  Change Reason: An application or system component changed the time. Process: '\Device\HarddiskVolume2\Windows\System32\svchost.exe' (PID 2544).
+11/22/2025 18:17:50 [Information] Microsoft-Windows-Time-Service - The time service is now synchronizing the system time with the time source time.windows.com,0x8 (ntp.m|0x8|0.0.0.0:123->20.101.57.9:123) with reference id 154756372. Current local stratum number is 4.
+11/22/2025 18:17:50 [Warning] Microsoft-Windows-Time-Service - The time service has set the time with offset 32398 seconds.
+11/22/2025 18:17:50 [Information] Microsoft-Windows-Kernel-General - The system time has changed to ?2025?-?11?-?23T02:17:50.803914400Z from ?2025?-?11?-?23T11:17:48.955994400Z.  Change Reason: An application or system component changed the time. Process: '\Device\HarddiskVolume2\Windows\System32\svchost.exe' (PID 2544).
+11/23/2025 03:17:47 [Information] Service Control Manager - The Connected Devices Platform Service service entered the running state.
+11/23/2025 03:17:46 [Information] Service Control Manager - The Touch Keyboard and Handwriting Panel Service service entered the running state.
+11/23/2025 03:17:46 [Information] Service Control Manager - The Windows Push Notifications User Service_3755b service entered the running state.
+11/23/2025 03:17:46 [Information] Service Control Manager - The Connected Devices Platform User Service_3755b service entered the running state.
+11/23/2025 03:17:46 [Information] Microsoft-Windows-Winlogon - User Logon Notification for Customer Experience Improvement Program
+11/23/2025 03:17:45 [Information] Service Control Manager - The CNG Key Isolation service entered the running state.
+11/23/2025 03:17:44 [Information] Service Control Manager - The Microsoft Account Sign-in Assistant service entered the running state.
+11/23/2025 03:17:42 [Information] Service Control Manager - The Windows Modules Installer service entered the running state.
+11/23/2025 03:17:39 [Information] Service Control Manager - The AppX Deployment Service (AppXSVC) service entered the running state.
+11/23/2025 03:17:39 [Information] Service Control Manager - The State Repository Service service entered the running state.
+11/23/2025 03:17:39 [Information] Service Control Manager - The Web Account Manager service entered the running state.
+11/23/2025 03:17:39 [Information] Service Control Manager - The Windows Update service entered the running state.
+11/23/2025 03:17:36 [Information] Microsoft-Windows-Time-Service - The time provider NtpClient is currently receiving valid time data from time.windows.com,0x8 (ntp.m|0x8|0.0.0.0:123->20.101.57.9:123).
+11/23/2025 03:17:35 [Information] Service Control Manager - The Device Install Service service entered the running state.
+11/23/2025 03:17:35 [Information] Service Control Manager - The Client License Service (ClipSVC) service entered the running state.
+11/23/2025 03:17:35 [Information] Service Control Manager - The Windows License Manager Service service entered the running state.
+11/23/2025 03:17:34 [Information] Microsoft-Windows-Time-Service - The time provider NtpClient is currently receiving valid time data from time.windows.com,0x8 (ntp.m|0x8|0.0.0.0:123->20.101.57.9:123).
+11/23/2025 03:17:33 [Information] Service Control Manager - The DiagTrack service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The Remote Access Connection Manager service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The WinRM service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The sshd service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The Software Protection service entered the running state.
+11/23/2025 03:17:33 [Information] Microsoft-Windows-WinRM - The WinRM service is listening for WS-Management requests.    User Action   Use the following command to see the specific IPs on which WinRM is listening:    winrm enumerate winrm/config/listener
+11/23/2025 03:17:33 [Information] Service Control Manager - The Windows Push Notifications System Service service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The WinDefend service entered the running state.
+11/23/2025 03:17:33 [Information] Service Control Manager - The iphlpsvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The following boot-start or system-start driver(s) did not load:  dam
+11/23/2025 03:17:32 [Information] Service Control Manager - The LanmanServer service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The W32Time service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The tapisrv service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The TrkWks service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The WLMS service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The CryptSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The SysMain service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The RemoteRegistry service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The SstpSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Winmgmt service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Spooler service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The SamSs service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The mpssvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The BFE service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The NcbService service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The UserManager service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The LanmanWorkstation service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The DsmSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The netprofm service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Wcmsvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The FontCache service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The WinHttpAutoProxySvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Schedule service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The NlaSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The ShellHWDetection service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The lmhosts service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Dnscache service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The Dhcp service entered the running state.
+11/23/2025 03:17:32 [Information] Microsoft-Windows-DHCPv6-Client - DHCPv6 client service is started
+11/23/2025 03:17:32 [Information] Service Control Manager - The ProfSvc service entered the running state.
+11/23/2025 03:17:32 [Information] Microsoft-Windows-Dhcp-Client - DHCPv4 client registered for shutdown notification
+11/23/2025 03:17:32 [Information] Microsoft-Windows-Dhcp-Client - DHCPv4 client service is started
+11/23/2025 03:17:32 [Information] Service Control Manager - The SENS service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The gpsvc service entered the running state.
+11/23/2025 03:17:32 [Information] Service Control Manager - The nsi service entered the running state.
 
-
-============================================================
-Timestamp: 2025-11-23 00:31:59 +0100
-Action: reboot_results
-------------------------------------------------------------
-=== Operation: reboot ===
-Date: Sun 23 Nov 00:31:59 CET 2025
-Target IPs: 192.168.56.10
-
->>> linux1 (192.168.56.10) [linux] <<<
-ssh: connect to host 192.168.56.10 port 22: Connection refused
-
-
-============================================================
-Timestamp: 2025-11-23 00:31:59 +0100
-Action: custom_command
-------------------------------------------------------------
-=== Operation: reboot ===
-Date: Sun 23 Nov 00:31:59 CET 2025
-Target IPs: 192.168.56.10
-
->>> linux1 (192.168.56.10) [linux] <<<
-ssh: connect to host 192.168.56.10 port 22: Connection refused
-
-
-============================================================
-Timestamp: 2025-11-23 00:32:17 +0100
-Action: reboot_results
-------------------------------------------------------------
-=== Operation: reboot ===
-Date: Sun 23 Nov 00:32:17 CET 2025
-Target IPs: 192.168.56.10
-
->>> linux1 (192.168.56.10) [linux] <<<
-ssh: connect to host 192.168.56.10 port 22: Connection refused
-
-
-============================================================
-Timestamp: 2025-11-23 00:32:17 +0100
-Action: custom_command
-------------------------------------------------------------
-=== Operation: reboot ===
-Date: Sun 23 Nov 00:32:17 CET 2025
-Target IPs: 192.168.56.10
-
->>> linux1 (192.168.56.10) [linux] <<<
-ssh: connect to host 192.168.56.10 port 22: Connection refused
-
-
-============================================================
-Timestamp: 2025-11-23 00:38:04 +0100
-Action: reboot_results
-------------------------------------------------------------
-=== Operation: reboot ===
-Date: Sun 23 Nov 00:38:04 CET 2025
-Target IPs: 192.168.56.20
-
->>> linux2 (192.168.56.20) [linux] <<<
-Rebooting system asklab...
-Connection to 192.168.56.20 closed by remote host.
-
-
-============================================================
-Timestamp: 2025-11-23 00:38:04 +0100
-Action: custom_command
-------------------------------------------------------------
-=== Operation: reboot ===
-Date: Sun 23 Nov 00:38:04 CET 2025
-Target IPs: 192.168.56.20
-
->>> linux2 (192.168.56.20) [linux] <<<
-Rebooting system asklab...
-Connection to 192.168.56.20 closed by remote host.
+-- Application Log --
 
 

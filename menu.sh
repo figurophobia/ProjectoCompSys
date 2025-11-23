@@ -93,10 +93,10 @@ execute_local_script_remote() {
         # Use quieter SSH/sshpass flags and avoid persisting host keys to suppress warnings.
         if [[ "$script_path" == *.ps1 ]]; then
             # Script PowerShell: enviarlo por stdin a powershell de forma no interactiva
-            sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command -" < "$script_path" 2>&1
+            sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile  -ExecutionPolicy Bypass -Command -" < "$script_path" 2>&1
         else
             # Comando directo
-            sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"$args\"" 2>&1
+            sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile  -ExecutionPolicy Bypass -Command \"$args\"" 2>&1
         fi
     else
         # Para Linux: SSH normal
@@ -273,13 +273,14 @@ system_operations_menu() {
 monitoring_menu() {
     while true; do
         CHOICE=$(dialog --stdout --title "Monitoring" \
-            --menu "Select option:" 15 60 6 \
+            --menu "Select option:" 17 60 7 \
             1 "Host Status" \
             2 "CPU Usage" \
             3 "Memory Usage" \
             4 "Disk Space" \
             5 "System Info" \
-            6 "Back")
+            6 "Event Logs" \
+            7 "Back")
         
         case $CHOICE in
             1) check_all_hosts_status ;;
@@ -287,6 +288,7 @@ monitoring_menu() {
             3) execute_monitoring "memory" ;;
             4) execute_monitoring "disk" ;;
             5) execute_monitoring "sysinfo" ;;
+            6) execute_monitoring "events" ;;
             *) return ;;
         esac
     done
@@ -555,17 +557,18 @@ execute_monitoring() {
     local first_ip=${ips[0]}
     local os_type=$(grep "$first_ip" "$CONFIG_FILE" | cut -d'|' -f3)
     
-    # Prepare Linux commands and Windows script paths; execution will be per-host
+    # Prepare Linux and Windows script paths; execution will be per-host
     local win_cpu="$LOCAL_SCRIPTS_DIR/windows/monitor_cpu.ps1"
     local win_mem="$LOCAL_SCRIPTS_DIR/windows/monitor_memory.ps1"
     local win_disk="$LOCAL_SCRIPTS_DIR/windows/monitor_disk.ps1"
     local win_sys="$LOCAL_SCRIPTS_DIR/windows/monitor_sysinfo.ps1"
+    local win_events="$LOCAL_SCRIPTS_DIR/windows/get_eventlogs.ps1"
 
-    # Linux commands
-    local cmd_cpu="top -bn1 | grep 'Cpu(s)' | awk '{print \"CPU: \" 100-\$8 \"%\"}'"
-    local cmd_mem="free -h | grep Mem | awk '{print \"Total: \"\$2\" | Used: \"\$3\" | Free: \"\$4}'"
-    local cmd_disk="df -h / | tail -1 | awk '{print \"Size: \"\$2\" | Used: \"\$3\" | Free: \"\$4\" | Usage: \"\$5}'"
-    local cmd_sys="echo \"Host: \$(hostname)\"; echo \"IP: \$(hostname -I | awk '{print \\\$1}')\"; echo \"Kernel: \$(uname -r)\"; echo \"Uptime: \$(uptime -p 2>/dev/null || uptime)\""
+    local linux_cpu="$LOCAL_SCRIPTS_DIR/linux/monitor_cpu.sh"
+    local linux_mem="$LOCAL_SCRIPTS_DIR/linux/monitor_memory.sh"
+    local linux_disk="$LOCAL_SCRIPTS_DIR/linux/monitor_disk.sh"
+    local linux_sys="$LOCAL_SCRIPTS_DIR/linux/monitor_sysinfo.sh"
+    local linux_events="$LOCAL_SCRIPTS_DIR/linux/get_syslogs.sh"
 
     local temp=$(mktemp)
     echo "=== Monitoring: $monitor_type ===" > "$temp"
@@ -586,13 +589,15 @@ execute_monitoring() {
                 memory) execute_local_script_remote "$ip" "$win_mem" >> "$temp" ;;
                 disk) execute_local_script_remote "$ip" "$win_disk" >> "$temp" ;;
                 sysinfo) execute_local_script_remote "$ip" "$win_sys" >> "$temp" ;;
+                events) execute_local_script_remote "$ip" "$win_events" >> "$temp" ;;
             esac
         else
             case $monitor_type in
-                cpu) ssh_exec "$ip" "$cmd_cpu" >> "$temp" ;;
-                memory) ssh_exec "$ip" "$cmd_mem" >> "$temp" ;;
-                disk) ssh_exec "$ip" "$cmd_disk" >> "$temp" ;;
-                sysinfo) ssh_exec "$ip" "$cmd_sys" >> "$temp" ;;
+                cpu) execute_local_script_remote "$ip" "$linux_cpu" >> "$temp" ;;
+                memory) execute_local_script_remote "$ip" "$linux_mem" >> "$temp" ;;
+                disk) execute_local_script_remote "$ip" "$linux_disk" >> "$temp" ;;
+                sysinfo) execute_local_script_remote "$ip" "$linux_sys" >> "$temp" ;;
+                events) execute_local_script_remote "$ip" "$linux_events" >> "$temp" ;;
             esac
         fi
 
