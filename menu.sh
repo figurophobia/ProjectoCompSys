@@ -3,7 +3,7 @@
 # ============================================================================
 # REMOTE SYSTEM CONTROL INTERFACE
 # ============================================================================
-# Script para controlar sistemas remotos Linux/Windows mediante SSH
+# Script to control remote Linux/Windows systems via SSH
 # ============================================================================
 
 CONFIG_FILE="hosts.conf"
@@ -13,7 +13,7 @@ WINDOWS_USER="Administrator"
 WINDOWS_PASS="1QAZxsw2"
 LOG_DIR="logs"
 
-# --- VARIABLES PARA BACKUP ---
+# --- BACKUP VARIABLES ---
 LINUX_BACKUP_DIR="backups/linux"
 WINDOWS_BACKUP_DIR="backups/windows"
 LINUX_BACKUP_SOURCES="/etc /var/log /home"
@@ -23,7 +23,7 @@ mkdir -p "$LINUX_BACKUP_DIR" "$WINDOWS_BACKUP_DIR"
 
 
 # ============================================================================
-# Verificar que dialog, ssh y sshpass estén instalados
+# Verify that dialog, ssh and sshpass are installed
 # ============================================================================
 check_dependencies() {
     if ! command -v dialog &> /dev/null; then
@@ -72,10 +72,10 @@ save_log() {
 }
 
 # ============================================================================
-# Ejecutar un script local en un host remoto
-# $1: IP del host
-# $2: Ruta del script local
-# $3: Argumentos opcionales
+# Execute a local script on a remote host
+# $1: Host IP
+# $2: Local script path
+# $3: Optional arguments
 # ============================================================================
 execute_local_script_remote() {
     local host=$1
@@ -84,61 +84,61 @@ execute_local_script_remote() {
     
     [ ! -f "$script_path" ] && echo "ERROR: Script not found: $script_path" && return 1
     
-    # Detectar si es Windows o Linux
+    # Detect if Windows or Linux
     local os_type=$(grep "$host" "$CONFIG_FILE" | cut -d'|' -f3)
     
     if [ "$os_type" = "windows" ]; then
-        # Para Windows: enviar script PowerShell por stdin
+        # For Windows: send PowerShell script via stdin
         # Use flags to run PowerShell non-interactively and bypass execution policy.
         # Use quieter SSH/sshpass flags and avoid persisting host keys to suppress warnings.
         if [[ "$script_path" == *.ps1 ]]; then
-            # Script PowerShell: enviarlo por stdin a powershell de forma no interactiva
+            # PowerShell script: send it via stdin to powershell non-interactively
             sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile  -ExecutionPolicy Bypass -Command -" < "$script_path" 2>&1
         else
-            # Comando directo
+            # Direct command
             sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile  -ExecutionPolicy Bypass -Command \"$args\"" 2>&1
         fi
     else
-        # Para Linux: SSH normal
+        # For Linux: normal SSH
         ssh -o ConnectTimeout=5 "${SSH_USER}@${host}" "bash -s $args" < "$script_path" 2>&1
     fi
 }
 
 # ============================================================================
-# Ejecutar un comando directo en un host remoto
-# $1: IP del host
-# $2: Comando a ejecutar
+# Execute a direct command on a remote host
+# $1: Host IP
+# $2: Command to execute
 # ============================================================================
 ssh_exec() {
     local host=$1
     local command=$2
     
-    # Detectar si es Windows o Linux
+    # Detect if Windows or Linux
     local os_type=$(grep "$host" "$CONFIG_FILE" | cut -d'|' -f3)
     
     if [ "$os_type" = "windows" ]; then
-    # Para Windows: usar sshpass con PowerShell (silenciar advertencias de SSH)
+    # For Windows: use sshpass with PowerShell (silence SSH warnings)
     sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"$command\"" 2>&1
     else
-        # Para Linux: SSH normal
+        # For Linux: normal SSH
         ssh -o ConnectTimeout=5 "${SSH_USER}@${host}" "$command" 2>&1
     fi
 }
 
 # ============================================================================
-# Verificar si un host está online (ping)
-# $1: IP del host
-# Retorna: 0 si está online, 1 si está offline
+# Check if a host is online (ping)
+# $1: Host IP
+# Returns: 0 if online, 1 if offline
 # ============================================================================
 check_host_online() {
     ping -c 1 -W 1 "$1" &> /dev/null
 }
 
 # ============================================================================
-# Convertir la selección del usuario en un array de IPs ONLINE
-# $1: IPs seleccionadas ("ALL" o "192.168.56.10 192.168.56.20")
-# $2: Filtro de OS opcional ("linux" o "windows")
-# Retorna: Array de IPs que están ONLINE
+# Convert user selection into an array of ONLINE IPs
+# $1: Selected IPs ("ALL" or "192.168.56.10 192.168.56.20")
+# $2: Optional OS filter ("linux" or "windows")
+# Returns: Array of IPs that are ONLINE
 # ============================================================================
 get_selected_ips() {
     local selected_ips=$1
@@ -166,8 +166,8 @@ get_selected_ips() {
 }
 
 # ============================================================================
-# Mostrar menú para seleccionar hosts
-# Variable global modificada: SELECTED_IPS
+# Show menu to select hosts
+# Modified global variable: SELECTED_IPS
 # ============================================================================
 select_hosts() {
     [ ! -f "$CONFIG_FILE" ] && dialog --msgbox "Error: '$CONFIG_FILE' not found!" 10 50 && return 1
@@ -191,9 +191,9 @@ select_hosts() {
 }
 
 # ============================================================================
-# Mostrar menú para seleccionar hosts filtrados por OS
-# $1: OS a filtrar ("linux" o "windows")
-# Variable global modificada: SELECTED_IPS
+# Show menu to select hosts filtered by OS
+# $1: OS to filter ("linux" or "windows")
+# Modified global variable: SELECTED_IPS
 # ============================================================================
 select_hosts_by_os() {
     local filter_os=$1
@@ -222,7 +222,7 @@ select_hosts_by_os() {
 }
 
 # ============================================================================
-# MENÚ PRINCIPAL
+# MAIN MENU
 # ============================================================================
 main_menu() {
     while true; do
@@ -245,7 +245,7 @@ main_menu() {
 }
 
 # ============================================================================
-# MENÚ: Operaciones del Sistema
+# MENU: System Operations
 # ============================================================================
 system_operations_menu() {
     while true; do
@@ -268,7 +268,7 @@ system_operations_menu() {
 }
 
 # ============================================================================
-# MENÚ: Monitoreo
+# MENU: Monitoring
 # ============================================================================
 monitoring_menu() {
     while true; do
@@ -295,7 +295,7 @@ monitoring_menu() {
 }
 
 # ============================================================================
-# Ver estado (online/offline) de todos los hosts
+# View status (online/offline) of all hosts
 # ============================================================================
 check_all_hosts_status() {
     [ ! -f "$CONFIG_FILE" ] && dialog --msgbox "Error: Config not found!" 8 50 && return 1
@@ -329,11 +329,11 @@ check_all_hosts_status() {
 }
 
 # ============================================================================
-# FUNCIÓN PARA BACKUPS
+# BACKUP FUNCTION
 # ============================================================================
 execute_backup_operation() {
     
-    # Declaramos las variables
+    # Declare variables
     local os_type backup_sources backup_dir os
     local script_path_linux script_path_windows remote_temp_file
 
@@ -345,17 +345,17 @@ execute_backup_operation() {
         *) return ;;
     esac
 
-    # 2. Mostrar menú SOLO de hosts del OS seleccionado
+    # 2. Show menu ONLY for hosts of selected OS
     select_hosts_by_os "$os" || return
 
     local ips=($(get_selected_ips "$SELECTED_IPS"))
     [ ${#ips[@]} -eq 0 ] && dialog --msgbox "No $os hosts ONLINE!" 8 50 && return
 
-    # 3. Configuración según OS
+    # 3. Configuration according to OS
     if [ "$os" == "linux" ]; then
         script_path_linux="$LOCAL_SCRIPTS_DIR/linux/backup.sh"
         
-        # Cargamos las fuentes TAL CUAL vienen de la config (ej: "/etc /home")
+        # Load sources AS-IS from config (e.g., "/etc /home")
         backup_sources="$LINUX_BACKUP_SOURCES"
         backup_dir="$LINUX_BACKUP_DIR"
         
@@ -367,16 +367,23 @@ execute_backup_operation() {
         [ ! -f "$script_path_windows" ] && dialog --msgbox "ERROR: Script not found!\n\n$script_path_windows" 10 60 && return
     fi
 
-    # 3. Confirmar
-    local confirm_msg="BACKUP de ${#ips[@]} ($os) system(s)?\n
+    # 3. Confirm
+    local backup_method=""
+    if [ "$os" == "linux" ]; then
+        backup_method="Linux will use LVM Snapshots for consistency."
+    else
+        backup_method="Windows will use native tar with live files."
+    fi
+    
+    local confirm_msg="BACKUP ${#ips[@]} ($os) system(s)?\n
     IPs: ${ips[*]}\n
-    Fuentes: $backup_sources\n
-    Destino: $backup_dir\n
-    Nota: Linux usará LVM Snapshots."
+    Sources: $backup_sources\n
+    Destination: $backup_dir\n
+    Note: $backup_method"
     
     dialog --yesno "$confirm_msg" 15 70 || return
 
-    # 4. Ejecutar backups con progreso
+    # 4. Execute backups with progress
     local temp=$(mktemp)
     echo "=== Operation: BACKUP ($os) ===" > "$temp"
     echo "Date: $(date)" >> "$temp"
@@ -391,70 +398,126 @@ execute_backup_operation() {
         percent=$(( (counter * 100) / total_hosts ))
 
         echo "XXX"
-        echo "Procesando backup ($os) de $ip ($((counter+1))/$total_hosts)..."
+        echo "Processing backup ($os) from $ip ($((counter+1))/$total_hosts)..."
         echo "XXX"
         echo $percent
 
         echo ">>> Host: $ip <<<" >> "$temp"
 
         if [ "$os" == "linux" ]; then
-            # ---- Backup Linux (LVM SNAPSHOT) ----
+            # ---- Linux Backup (LVM SNAPSHOT) ----
             
-            # Limpieza de rutas: convierte "/etc /home" en "etc home" para que funcione dentro del snapshot
+            # Path cleanup: converts "/etc /home" to "etc home" to work within snapshot
             local clean_sources=$(echo "$backup_sources" | sed -e 's|^/||' -e 's| /| |g')
 
-            # Ejecutamos pasando la variable limpia
+            # Execute passing the cleaned variable
             bash "$script_path_linux" "$ip" "$clean_sources" "$backup_dir" >> "$temp" 2>&1
 
         elif [ "$os" == "windows" ]; then
-            # ---- Backup Windows ----
-            # 1. Copiar el script al servidor Windows
-            REMOTE_SCRIPT_PATH="C:\\Windows\\Temp\\backup_temp.ps1"
-            echo "Copiando script de backup a $ip..." >> "$temp"
-            sshpass -p "$WINDOWS_PASS" scp -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "$script_path_windows" "${WINDOWS_USER}@${ip}:${REMOTE_SCRIPT_PATH}" >> "$temp" 2>&1
+            # ---- Windows Backup (Simplified) ----
+            echo "Running simplified backup on $ip..." >> "$temp"
             
-            if [ $? -ne 0 ]; then
-                echo "ERROR: No se pudo copiar el script al servidor Windows" >> "$temp"
+            # Step 1: Verify that tar.exe exists
+            echo "Verifying tar.exe..." >> "$temp"
+            TAR_CHECK=$(sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" \
+                "where tar.exe" 2>&1)
+            echo "Tar check result: $TAR_CHECK" >> "$temp"
+            
+            if [[ "$TAR_CHECK" != *"tar.exe"* ]]; then
+                echo "ERROR: tar.exe is not available on Windows. Requires Windows 10 1803+ or Windows 11" >> "$temp"
                 continue
             fi
             
-            # 2. Ejecutar el script remotamente
-            echo "Ejecutando backup en $ip..." >> "$temp"
-            REMOTE_FILE_PATH=$(sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" \
-                "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File '${REMOTE_SCRIPT_PATH}' -Paths '${backup_sources}' -DestFolder 'C:\\Windows\\Temp'" 2>&1 | tail -n 1)
+            # Step 2: Create filename
+            WIN_HOSTNAME=$(sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" "hostname" 2>&1 | tr -d '\r\n')
+            TIMESTAMP=$(date +%Y-%m-%d_%H%M%S)
+            REMOTE_FILE_PATH="C:\\Windows\\Temp\\backup-${WIN_HOSTNAME:-$ip}-${TIMESTAMP}.tar.gz"
+            
+            echo "Destination file: $REMOTE_FILE_PATH" >> "$temp"
+            
+            # Step 3: Verify source paths
+            echo "Verifying source paths..." >> "$temp"
+            for path in $backup_sources; do
+                PATH_CHECK=$(sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" \
+                    "powershell -Command \"Test-Path '$path'\"" 2>&1 | tr -d '\r\n')
+                echo "Path $path exists: $PATH_CHECK" >> "$temp"
+            done
+            
+            # Step 4: Create backup with tar (all important user folders)
+            echo "Running tar with multiple folders..." >> "$temp"
+            TAR_OUTPUT=$(sshpass -p "$WINDOWS_PASS" ssh -o ConnectTimeout=60 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${WINDOWS_USER}@${ip}" \
+                "cd C:\\ && tar.exe -czf \"$REMOTE_FILE_PATH\" \"Users\\Administrator\\Documents\" \"Users\\Administrator\\Desktop\" \"Users\\Administrator\\Downloads\" \"Users\\Administrator\\Pictures\" \"Users\\Administrator\\Videos\" \"Users\\Administrator\\Music\" \"PerfLogs\" \"Program Files\" \"Windows\\System32\\drivers\\etc\" 2>&1" 2>&1)
+            
+            echo "=== TAR Output ===" >> "$temp"
+            echo "$TAR_OUTPUT" >> "$temp"
+            echo "=== End TAR Output ===" >> "$temp"
+            
+            # Step 5: Verify that the file was created
+            FILE_CHECK=$(sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" \
+                "powershell -Command \"Test-Path '$REMOTE_FILE_PATH'\"" 2>&1 | tr -d '\r\n')
+                
+            echo "File created: $FILE_CHECK" >> "$temp"
 
-            REMOTE_FILE_PATH=$(echo "$REMOTE_FILE_PATH" | tr -d '\r')
-
-            if [[ -z "$REMOTE_FILE_PATH" || "$REMOTE_FILE_PATH" != *".tar.gz"* ]]; then
-                echo "ERROR: No se generó el archivo remoto. Salida: $REMOTE_FILE_PATH" >> "$temp"
+            if [[ "$FILE_CHECK" != "True" ]]; then
+                echo "ERROR: Backup file was not generated" >> "$temp"
             else
-                # 3. Obtener hostname de Windows
-                WIN_HOSTNAME=$(sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" "hostname" 2>&1 | tr -d '\r\n')
-                local_file_name="backup-WIN-${WIN_HOSTNAME:-$ip}-$(date +%Y-%m-%d_%H%M).tar.gz"
+                # 6. Download the backup (convert Windows path to SCP format)
+                local_file_name="backup-WIN-${WIN_HOSTNAME:-$ip}-${TIMESTAMP}.tar.gz"
+                SCP_REMOTE_PATH=$(echo "$REMOTE_FILE_PATH" | sed 's|C:\\Windows\\Temp\\|/cygdrive/c/Windows/Temp/|' | sed 's|\\\\|/|g')
                 
-                # 4. Descargar el backup usando scp con sshpass
-                echo "Descargando backup de $ip..." >> "$temp"
-                sshpass -p "$WINDOWS_PASS" scp -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}:${REMOTE_FILE_PATH}" "$backup_dir/$local_file_name" >> "$temp" 2>&1
+                echo "Original path: $REMOTE_FILE_PATH" >> "$temp"
+                echo "SCP path: $SCP_REMOTE_PATH" >> "$temp"
+                echo "Downloading to: $backup_dir/$local_file_name" >> "$temp"
                 
-                # 5. Limpiar archivos temporales en Windows (script y backup)
-                sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" "del '${REMOTE_FILE_PATH}' '${REMOTE_SCRIPT_PATH}'" >> "$temp" 2>&1
+                # Try download with different path formats
+                echo "Attempting download..." >> "$temp"
+                if sshpass -p "$WINDOWS_PASS" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${WINDOWS_USER}@${ip}:\"$REMOTE_FILE_PATH\"" "$backup_dir/$local_file_name" >> "$temp" 2>&1; then
+                    echo "✓ Successful download with Windows path" >> "$temp"
+                elif sshpass -p "$WINDOWS_PASS" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${WINDOWS_USER}@${ip}:$SCP_REMOTE_PATH" "$backup_dir/$local_file_name" >> "$temp" 2>&1; then
+                    echo "✓ Successful download with Cygwin path" >> "$temp"
+                else
+                    echo "✗ Download failed, trying with PSCP..." >> "$temp"
+                    # As last resort, use PowerShell to copy the file
+                    sshpass -p "$WINDOWS_PASS" ssh -o ConnectTimeout=30 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${WINDOWS_USER}@${ip}" \
+                        "powershell -Command \"[System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes('$REMOTE_FILE_PATH'))\"" > "$backup_dir/${local_file_name}.b64" 2>>"$temp"
+                    
+                    if [ -f "$backup_dir/${local_file_name}.b64" ]; then
+                        base64 -d "$backup_dir/${local_file_name}.b64" > "$backup_dir/$local_file_name" 2>>"$temp"
+                        rm -f "$backup_dir/${local_file_name}.b64"
+                        echo "✓ Successful download with Base64" >> "$temp"
+                    else
+                        echo "✗ Complete download failure" >> "$temp"
+                    fi
+                fi
                 
-                echo "Backup de $ip completado: $local_file_name" >> "$temp"
+                # 7. Verify that the file was downloaded
+                if [ -f "$backup_dir/$local_file_name" ]; then
+                    FILE_SIZE=$(ls -lh "$backup_dir/$local_file_name" | awk '{print $5}')
+                    echo "✓ File downloaded: $local_file_name (${FILE_SIZE})" >> "$temp"
+                    
+                    # 8. Clean up temporary file on Windows
+                    sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" \
+                        "del \"$REMOTE_FILE_PATH\"" >> "$temp" 2>&1
+                    
+                    echo "Backup of $ip completed: $local_file_name" >> "$temp"
+                else
+                    echo "ERROR: The file could not be downloaded to the local folder" >> "$temp"
+                fi
             fi
         fi
 
         echo "" >> "$temp"
         ((counter++))
     done
-    ) | dialog --title "Pulling Backups..." --gauge "Iniciando..." 10 70 0
+    ) | dialog --title "Pulling Backups..." --gauge "Starting..." 10 70 0
 
     dialog --title "Backup Results" --textbox "$temp" 22 70
     rm -f "$temp"
 }
 
 # ============================================================================
-# Ejecutar operación del sistema (reboot, shutdown, update)
-# $1: Tipo de operación
+# Execute system operation (reboot, shutdown, update)
+# $1: Operation type
 # ============================================================================
 execute_operation() {
     local operation=$1
@@ -471,7 +534,7 @@ execute_operation() {
     
     local script_path script_args confirm_msg
     
-    # Build a confirmation message and then execute per-host with correct script
+    # Build confirmation message and then execute per-host with correct script
     confirm_msg="${operation^^} ${#ips[@]} system(s)?\n\nIPs: ${ips[*]}\n\nAre you sure?"
 
     # (restart_service removed) No per-operation additional inputs required
@@ -485,7 +548,7 @@ execute_operation() {
     echo "" >> "$temp"
 
     for ip in "${ips[@]}"; do
-        # lookup hostname and os info for clearer logs
+        # Lookup hostname and OS info for clearer logs
         host_line=$(grep "|$ip|" "$CONFIG_FILE" 2>/dev/null || grep "$ip" "$CONFIG_FILE" 2>/dev/null || true)
         hostname_entry=$(echo "$host_line" | cut -d'|' -f1)
         os_type=$(echo "$host_line" | cut -d'|' -f3)
@@ -533,15 +596,15 @@ execute_operation() {
     
     # Save results to logs and show to user
     save_log "$temp" "${operation}_results"
-    # Save custom command results to logs and display
+    # Save results to logs and display
     save_log "$temp" "custom_command"
     dialog --title "Results" --textbox "$temp" 22 70
     rm -f "$temp"
 }
 
 # ============================================================================
-# Ejecutar comando de monitoreo (cpu, memory, disk, sysinfo)
-# $1: Tipo de monitoreo
+# Execute monitoring command (cpu, memory, disk, sysinfo)
+# $1: Monitoring type
 # ============================================================================
 execute_monitoring() {
     local monitor_type=$1
@@ -553,7 +616,7 @@ execute_monitoring() {
     
     local command
     
-    # Detectar si hay hosts Windows o Linux
+    # Detect if there are Windows or Linux hosts
     local first_ip=${ips[0]}
     local os_type=$(grep "$first_ip" "$CONFIG_FILE" | cut -d'|' -f3)
     
@@ -611,7 +674,7 @@ execute_monitoring() {
 }
 
 # ============================================================================
-# Ejecutar comando personalizado escrito por el usuario
+# Execute custom command written by the user
 # ============================================================================
 execute_custom_command() {
     local os_type=$(dialog --stdout --title "OS Type" --menu "Select OS:" 12 40 2 1 "Linux" 2 "Windows")
@@ -653,7 +716,7 @@ execute_custom_command() {
 }
 
 # ============================================================================
-# MENÚ: Gestionar Hosts
+# MENU: Manage Hosts
 # ============================================================================
 manage_hosts_menu() {
     while true; do
@@ -672,21 +735,21 @@ manage_hosts_menu() {
 }
 
 # ============================================================================
-# Mostrar contenido del archivo de configuración
+# Show configuration file contents
 # ============================================================================
 view_hosts() {
     [ -f "$CONFIG_FILE" ] && dialog --textbox "$CONFIG_FILE" 20 70 || dialog --msgbox "Config not found!" 8 40
 }
 
 # ============================================================================
-# Abrir el archivo de configuración en un editor
+# Open configuration file in an editor
 # ============================================================================
 edit_config() {
     [ -f "$CONFIG_FILE" ] && ${EDITOR:-nano} "$CONFIG_FILE" || dialog --msgbox "Config not found!" 8 40
 }
 
 # ============================================================================
-# INICIO DEL SCRIPT
+# SCRIPT START
 # ============================================================================
 check_dependencies
 main_menu

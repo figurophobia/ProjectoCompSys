@@ -343,3 +343,938 @@ Nov 23 02:25:07 asklab systemd[1]: Started Session 1 of User root.
 -- Application Log --
 
 
+============================================================
+Timestamp: 2025-11-23 14:30:40 +0100
+Action: reboot_results
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 14:30:38 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 14:30:40 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 14:30:38 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 14:52:29 +0100
+Action: host_status
+------------------------------------------------------------
+HOST STATUS REPORT
+Generated: Sun 23 Nov 14:52:27 CET 2025
+==============================
+
+✓ ONLINE  - linux1 (192.168.56.10) [linux]
+✓ ONLINE  - linux2 (192.168.56.20) [linux]
+● OFFLINE - windows2 (192.168.56.40) [windows]
+● OFFLINE - windows1 (192.168.56.30) [windows]
+
+==============================
+Total: 2 online, 2 offline
+
+============================================================
+Timestamp: 2025-11-23 14:52:44 +0100
+Action: monitor_cpu
+------------------------------------------------------------
+=== Monitoring: cpu ===
+Date: Sun 23 Nov 14:52:43 CET 2025
+IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+CPU: 3%
+
+>>> linux2 (192.168.56.20) [linux] <<<
+CPU: 13%
+
+
+============================================================
+Timestamp: 2025-11-23 14:52:52 +0100
+Action: monitor_memory
+------------------------------------------------------------
+=== Monitoring: memory ===
+Date: Sun 23 Nov 14:52:51 CET 2025
+IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Total: 1.9Gi | Used: 254Mi | Free: 904Mi
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Total: 1.9Gi | Used: 281Mi | Free: 1.1Gi
+
+
+============================================================
+Timestamp: 2025-11-23 14:52:58 +0100
+Action: monitor_disk
+------------------------------------------------------------
+=== Monitoring: disk ===
+Date: Sun 23 Nov 14:52:58 CET 2025
+IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Size: 12G | Used: 6.1G | Free: 4.7G | Usage: 57%
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Size: 12G | Used: 6.2G | Free: 4.6G | Usage: 58%
+
+
+============================================================
+Timestamp: 2025-11-23 14:53:07 +0100
+Action: monitor_sysinfo
+------------------------------------------------------------
+=== Monitoring: sysinfo ===
+Date: Sun 23 Nov 14:53:07 CET 2025
+IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Host: asklab
+IP: 10.0.2.15
+Kernel: 5.15.0-161-generic
+Uptime: up 22 minutes
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Host: asklab
+IP: 10.0.2.15
+Kernel: 5.15.0-161-generic
+Uptime: up 22 minutes
+
+
+============================================================
+Timestamp: 2025-11-23 14:53:18 +0100
+Action: monitor_events
+------------------------------------------------------------
+=== Monitoring: events ===
+Date: Sun 23 Nov 14:53:18 CET 2025
+IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+=== Linux System Logs (last 100 lines) ===
+Nov 23 13:52:44 asklab systemd[2414]: Listening on GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:52:44 asklab systemd[2414]: Listening on debconf communication socket.
+Nov 23 13:52:44 asklab systemd[2414]: Listening on REST API socket for snapd user session agent.
+Nov 23 13:52:44 asklab systemd[2414]: Listening on D-Bus User Message Bus Socket.
+Nov 23 13:52:44 asklab systemd[2414]: Reached target Sockets.
+Nov 23 13:52:44 asklab systemd[2414]: Reached target Basic System.
+Nov 23 13:52:44 asklab systemd[2414]: Reached target Main User Target.
+Nov 23 13:52:44 asklab systemd[2414]: Startup finished in 48ms.
+Nov 23 13:52:44 asklab systemd[1]: Started User Manager for UID 0.
+Nov 23 13:52:44 asklab systemd[1]: Started Session 17 of User root.
+Nov 23 13:52:44 asklab sshd[2411]: Received disconnect from 192.168.56.1 port 39394:11: disconnected by user
+Nov 23 13:52:44 asklab sshd[2411]: Disconnected from user root 192.168.56.1 port 39394
+Nov 23 13:52:44 asklab sshd[2411]: pam_unix(sshd:session): session closed for user root
+Nov 23 13:52:44 asklab systemd-logind[643]: Session 17 logged out. Waiting for processes to exit.
+Nov 23 13:52:44 asklab systemd[1]: session-17.scope: Deactivated successfully.
+Nov 23 13:52:44 asklab systemd-logind[643]: Removed session 17.
+Nov 23 13:52:46 asklab systemd-resolved[612]: Clock change detected. Flushing caches.
+Nov 23 13:52:51 asklab sshd[2491]: Accepted publickey for root from 192.168.56.1 port 39396 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:52:51 asklab sshd[2491]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:52:51 asklab systemd[1]: Started Session 19 of User root.
+Nov 23 13:52:51 asklab systemd-logind[643]: New session 19 of user root.
+Nov 23 13:52:52 asklab sshd[2491]: Received disconnect from 192.168.56.1 port 39396:11: disconnected by user
+Nov 23 13:52:52 asklab sshd[2491]: Disconnected from user root 192.168.56.1 port 39396
+Nov 23 13:52:52 asklab sshd[2491]: pam_unix(sshd:session): session closed for user root
+Nov 23 13:52:52 asklab systemd-logind[643]: Session 19 logged out. Waiting for processes to exit.
+Nov 23 13:52:52 asklab systemd[1]: session-19.scope: Deactivated successfully.
+Nov 23 13:52:52 asklab systemd-logind[643]: Removed session 19.
+Nov 23 13:52:58 asklab sshd[2551]: Accepted publickey for root from 192.168.56.1 port 59860 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:52:58 asklab sshd[2551]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:52:58 asklab systemd[1]: Started Session 20 of User root.
+Nov 23 13:52:58 asklab systemd-logind[643]: New session 20 of user root.
+Nov 23 13:52:58 asklab sshd[2551]: Received disconnect from 192.168.56.1 port 59860:11: disconnected by user
+Nov 23 13:52:58 asklab sshd[2551]: Disconnected from user root 192.168.56.1 port 59860
+Nov 23 13:52:58 asklab sshd[2551]: pam_unix(sshd:session): session closed for user root
+Nov 23 13:52:58 asklab systemd[1]: session-20.scope: Deactivated successfully.
+Nov 23 13:52:58 asklab systemd-logind[643]: Session 20 logged out. Waiting for processes to exit.
+Nov 23 13:52:58 asklab systemd-logind[643]: Removed session 20.
+Nov 23 13:53:07 asklab sshd[2616]: Accepted publickey for root from 192.168.56.1 port 45062 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:53:07 asklab sshd[2616]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:07 asklab systemd[1]: Started Session 21 of User root.
+Nov 23 13:53:07 asklab systemd-logind[643]: New session 21 of user root.
+Nov 23 13:53:07 asklab sshd[2616]: Received disconnect from 192.168.56.1 port 45062:11: disconnected by user
+Nov 23 13:53:07 asklab sshd[2616]: Disconnected from user root 192.168.56.1 port 45062
+Nov 23 13:53:07 asklab sshd[2616]: pam_unix(sshd:session): session closed for user root
+Nov 23 13:53:07 asklab systemd[1]: session-21.scope: Deactivated successfully.
+Nov 23 13:53:07 asklab systemd-logind[643]: Session 21 logged out. Waiting for processes to exit.
+Nov 23 13:53:07 asklab systemd-logind[643]: Removed session 21.
+Nov 23 13:53:17 asklab systemd[1]: Stopping User Manager for UID 0...
+Nov 23 13:53:17 asklab systemd[2414]: Stopped target Main User Target.
+Nov 23 13:53:17 asklab systemd[2414]: Stopped target Basic System.
+Nov 23 13:53:17 asklab systemd[2414]: Stopped target Paths.
+Nov 23 13:53:17 asklab systemd[2414]: Stopped target Sockets.
+Nov 23 13:53:17 asklab systemd[2414]: Stopped target Timers.
+Nov 23 13:53:17 asklab systemd[2414]: Closed D-Bus User Message Bus Socket.
+Nov 23 13:53:17 asklab systemd[2414]: Closed GnuPG network certificate management daemon.
+Nov 23 13:53:17 asklab systemd[2414]: Closed GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Nov 23 13:53:17 asklab systemd[2414]: Closed GnuPG cryptographic agent and passphrase cache (restricted).
+Nov 23 13:53:17 asklab systemd[2414]: Closed GnuPG cryptographic agent (ssh-agent emulation).
+Nov 23 13:53:17 asklab systemd[2414]: Closed GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:53:17 asklab systemd[2414]: Closed debconf communication socket.
+Nov 23 13:53:17 asklab systemd[2414]: Closed REST API socket for snapd user session agent.
+Nov 23 13:53:17 asklab systemd[2414]: Removed slice User Application Slice.
+Nov 23 13:53:17 asklab systemd[2414]: Reached target Shutdown.
+Nov 23 13:53:17 asklab systemd[2414]: Finished Exit the Session.
+Nov 23 13:53:17 asklab systemd[2414]: Reached target Exit the Session.
+Nov 23 13:53:17 asklab systemd[1]: user@0.service: Deactivated successfully.
+Nov 23 13:53:17 asklab systemd[1]: Stopped User Manager for UID 0.
+Nov 23 13:53:17 asklab systemd[1]: Stopping User Runtime Directory /run/user/0...
+Nov 23 13:53:17 asklab systemd[1]: run-user-0.mount: Deactivated successfully.
+Nov 23 13:53:17 asklab systemd[1]: user-runtime-dir@0.service: Deactivated successfully.
+Nov 23 13:53:17 asklab systemd[1]: Stopped User Runtime Directory /run/user/0.
+Nov 23 13:53:17 asklab systemd[1]: Removed slice User Slice of UID 0.
+Nov 23 13:53:17 asklab systemd-resolved[612]: Clock change detected. Flushing caches.
+Nov 23 13:53:18 asklab sshd[2672]: Accepted publickey for root from 192.168.56.1 port 40894 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:53:18 asklab sshd[2672]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:18 asklab systemd[1]: Created slice User Slice of UID 0.
+Nov 23 13:53:18 asklab systemd[1]: Starting User Runtime Directory /run/user/0...
+Nov 23 13:53:18 asklab systemd-logind[643]: New session 22 of user root.
+Nov 23 13:53:18 asklab systemd[1]: Finished User Runtime Directory /run/user/0.
+Nov 23 13:53:18 asklab systemd[1]: Starting User Manager for UID 0...
+Nov 23 13:53:18 asklab systemd[2675]: pam_unix(systemd-user:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:18 asklab systemd[2675]: Queued start job for default target Main User Target.
+Nov 23 13:53:18 asklab systemd[2675]: Created slice User Application Slice.
+Nov 23 13:53:18 asklab systemd[2675]: Reached target Paths.
+Nov 23 13:53:18 asklab systemd[2675]: Reached target Timers.
+Nov 23 13:53:18 asklab systemd[2675]: Starting D-Bus User Message Bus Socket...
+Nov 23 13:53:18 asklab systemd[2675]: Listening on GnuPG network certificate management daemon.
+Nov 23 13:53:18 asklab systemd[2675]: Listening on GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Nov 23 13:53:18 asklab systemd[2675]: Listening on GnuPG cryptographic agent and passphrase cache (restricted).
+Nov 23 13:53:18 asklab systemd[2675]: Listening on GnuPG cryptographic agent (ssh-agent emulation).
+Nov 23 13:53:18 asklab systemd[2675]: Listening on GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:53:18 asklab systemd[2675]: Listening on debconf communication socket.
+Nov 23 13:53:18 asklab systemd[2675]: Listening on REST API socket for snapd user session agent.
+Nov 23 13:53:18 asklab systemd[2675]: Listening on D-Bus User Message Bus Socket.
+Nov 23 13:53:18 asklab systemd[2675]: Reached target Sockets.
+Nov 23 13:53:18 asklab systemd[2675]: Reached target Basic System.
+Nov 23 13:53:18 asklab systemd[1]: Started User Manager for UID 0.
+Nov 23 13:53:18 asklab systemd[1]: Started Session 22 of User root.
+Nov 23 13:53:18 asklab systemd[2675]: Reached target Main User Target.
+Nov 23 13:53:18 asklab systemd[2675]: Startup finished in 59ms.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+=== Linux System Logs (last 100 lines) ===
+Nov 23 13:52:44 asklab systemd[1992]: Listening on GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:52:44 asklab systemd[1992]: Listening on debconf communication socket.
+Nov 23 13:52:44 asklab systemd[1992]: Listening on REST API socket for snapd user session agent.
+Nov 23 13:52:44 asklab systemd[1992]: Listening on D-Bus User Message Bus Socket.
+Nov 23 13:52:44 asklab systemd[1992]: Reached target Sockets.
+Nov 23 13:52:44 asklab systemd[1992]: Reached target Basic System.
+Nov 23 13:52:44 asklab systemd[1992]: Reached target Main User Target.
+Nov 23 13:52:44 asklab systemd[1992]: Startup finished in 44ms.
+Nov 23 13:52:44 asklab systemd[1]: Started User Manager for UID 0.
+Nov 23 13:52:44 asklab systemd[1]: Started Session 12 of User root.
+Nov 23 13:52:45 asklab sshd[1989]: Received disconnect from 192.168.56.1 port 48992:11: disconnected by user
+Nov 23 13:52:45 asklab sshd[1989]: Disconnected from user root 192.168.56.1 port 48992
+Nov 23 13:52:45 asklab sshd[1989]: pam_unix(sshd:session): session closed for user root
+Nov 23 13:52:45 asklab systemd[1]: session-12.scope: Deactivated successfully.
+Nov 23 13:52:45 asklab systemd-logind[841]: Session 12 logged out. Waiting for processes to exit.
+Nov 23 13:52:45 asklab systemd-logind[841]: Removed session 12.
+Nov 23 13:52:46 asklab systemd-resolved[795]: Clock change detected. Flushing caches.
+Nov 23 13:52:52 asklab sshd[2069]: Accepted publickey for root from 192.168.56.1 port 49002 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:52:52 asklab sshd[2069]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:52:52 asklab systemd-logind[841]: New session 14 of user root.
+Nov 23 13:52:52 asklab systemd[1]: Started Session 14 of User root.
+Nov 23 13:52:52 asklab sshd[2069]: Received disconnect from 192.168.56.1 port 49002:11: disconnected by user
+Nov 23 13:52:52 asklab sshd[2069]: Disconnected from user root 192.168.56.1 port 49002
+Nov 23 13:52:52 asklab sshd[2069]: pam_unix(sshd:session): session closed for user root
+Nov 23 13:52:52 asklab systemd-logind[841]: Session 14 logged out. Waiting for processes to exit.
+Nov 23 13:52:52 asklab systemd[1]: session-14.scope: Deactivated successfully.
+Nov 23 13:52:52 asklab systemd-logind[841]: Removed session 14.
+Nov 23 13:52:58 asklab sshd[2129]: Accepted publickey for root from 192.168.56.1 port 42398 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:52:58 asklab sshd[2129]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:52:58 asklab systemd-logind[841]: New session 15 of user root.
+Nov 23 13:52:58 asklab systemd[1]: Started Session 15 of User root.
+Nov 23 13:52:58 asklab sshd[2129]: Received disconnect from 192.168.56.1 port 42398:11: disconnected by user
+Nov 23 13:52:58 asklab sshd[2129]: Disconnected from user root 192.168.56.1 port 42398
+Nov 23 13:52:58 asklab sshd[2129]: pam_unix(sshd:session): session closed for user root
+Nov 23 13:52:58 asklab systemd[1]: session-15.scope: Deactivated successfully.
+Nov 23 13:52:58 asklab systemd-logind[841]: Session 15 logged out. Waiting for processes to exit.
+Nov 23 13:52:58 asklab systemd-logind[841]: Removed session 15.
+Nov 23 13:53:07 asklab sshd[2194]: Accepted publickey for root from 192.168.56.1 port 49192 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:53:07 asklab sshd[2194]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:07 asklab systemd-logind[841]: New session 16 of user root.
+Nov 23 13:53:07 asklab systemd[1]: Started Session 16 of User root.
+Nov 23 13:53:07 asklab sshd[2194]: Received disconnect from 192.168.56.1 port 49192:11: disconnected by user
+Nov 23 13:53:07 asklab sshd[2194]: Disconnected from user root 192.168.56.1 port 49192
+Nov 23 13:53:07 asklab sshd[2194]: pam_unix(sshd:session): session closed for user root
+Nov 23 13:53:07 asklab systemd-logind[841]: Session 16 logged out. Waiting for processes to exit.
+Nov 23 13:53:07 asklab systemd[1]: session-16.scope: Deactivated successfully.
+Nov 23 13:53:07 asklab systemd-logind[841]: Removed session 16.
+Nov 23 13:53:18 asklab systemd[1]: Stopping User Manager for UID 0...
+Nov 23 13:53:18 asklab systemd[1992]: Stopped target Main User Target.
+Nov 23 13:53:18 asklab systemd[1992]: Stopped target Basic System.
+Nov 23 13:53:18 asklab systemd[1992]: Stopped target Paths.
+Nov 23 13:53:18 asklab systemd[1992]: Stopped target Sockets.
+Nov 23 13:53:18 asklab systemd[1992]: Stopped target Timers.
+Nov 23 13:53:18 asklab systemd[1992]: Closed D-Bus User Message Bus Socket.
+Nov 23 13:53:18 asklab systemd[1992]: Closed GnuPG network certificate management daemon.
+Nov 23 13:53:18 asklab systemd[1992]: Closed GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Nov 23 13:53:18 asklab systemd[1992]: Closed GnuPG cryptographic agent and passphrase cache (restricted).
+Nov 23 13:53:18 asklab systemd[1992]: Closed GnuPG cryptographic agent (ssh-agent emulation).
+Nov 23 13:53:18 asklab systemd[1992]: Closed GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:53:18 asklab systemd[1992]: Closed debconf communication socket.
+Nov 23 13:53:18 asklab systemd[1992]: Closed REST API socket for snapd user session agent.
+Nov 23 13:53:18 asklab systemd[1992]: Removed slice User Application Slice.
+Nov 23 13:53:18 asklab systemd[1992]: Reached target Shutdown.
+Nov 23 13:53:18 asklab systemd[1992]: Finished Exit the Session.
+Nov 23 13:53:18 asklab systemd[1992]: Reached target Exit the Session.
+Nov 23 13:53:18 asklab systemd[1]: user@0.service: Deactivated successfully.
+Nov 23 13:53:18 asklab systemd[1]: Stopped User Manager for UID 0.
+Nov 23 13:53:18 asklab systemd[1]: Stopping User Runtime Directory /run/user/0...
+Nov 23 13:53:18 asklab systemd[1]: run-user-0.mount: Deactivated successfully.
+Nov 23 13:53:18 asklab systemd[1]: user-runtime-dir@0.service: Deactivated successfully.
+Nov 23 13:53:18 asklab systemd[1]: Stopped User Runtime Directory /run/user/0.
+Nov 23 13:53:18 asklab systemd[1]: Removed slice User Slice of UID 0.
+Nov 23 13:53:18 asklab systemd-resolved[795]: Clock change detected. Flushing caches.
+Nov 23 13:53:18 asklab sshd[2250]: Accepted publickey for root from 192.168.56.1 port 43506 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:53:18 asklab sshd[2250]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:18 asklab systemd[1]: Created slice User Slice of UID 0.
+Nov 23 13:53:18 asklab systemd[1]: Starting User Runtime Directory /run/user/0...
+Nov 23 13:53:18 asklab systemd-logind[841]: New session 17 of user root.
+Nov 23 13:53:18 asklab systemd[1]: Finished User Runtime Directory /run/user/0.
+Nov 23 13:53:18 asklab systemd[1]: Starting User Manager for UID 0...
+Nov 23 13:53:18 asklab systemd[2253]: pam_unix(systemd-user:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:18 asklab systemd[2253]: Queued start job for default target Main User Target.
+Nov 23 13:53:18 asklab systemd[2253]: Created slice User Application Slice.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Paths.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Timers.
+Nov 23 13:53:18 asklab systemd[2253]: Starting D-Bus User Message Bus Socket...
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG network certificate management daemon.
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG cryptographic agent and passphrase cache (restricted).
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG cryptographic agent (ssh-agent emulation).
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:53:18 asklab systemd[2253]: Listening on debconf communication socket.
+Nov 23 13:53:18 asklab systemd[2253]: Listening on REST API socket for snapd user session agent.
+Nov 23 13:53:18 asklab systemd[2253]: Listening on D-Bus User Message Bus Socket.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Sockets.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Basic System.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Main User Target.
+Nov 23 13:53:18 asklab systemd[2253]: Startup finished in 62ms.
+Nov 23 13:53:18 asklab systemd[1]: Started User Manager for UID 0.
+Nov 23 13:53:18 asklab systemd[1]: Started Session 17 of User root.
+
+
+============================================================
+Timestamp: 2025-11-23 14:53:45 +0100
+Action: monitor_events
+------------------------------------------------------------
+=== Monitoring: events ===
+Date: Sun 23 Nov 14:53:45 CET 2025
+IPs: 192.168.56.20
+
+>>> linux2 (192.168.56.20) [linux] <<<
+=== Linux System Logs (last 100 lines) ===
+Nov 23 13:53:18 asklab systemd[1992]: Closed GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:53:18 asklab systemd[1992]: Closed debconf communication socket.
+Nov 23 13:53:18 asklab systemd[1992]: Closed REST API socket for snapd user session agent.
+Nov 23 13:53:18 asklab systemd[1992]: Removed slice User Application Slice.
+Nov 23 13:53:18 asklab systemd[1992]: Reached target Shutdown.
+Nov 23 13:53:18 asklab systemd[1992]: Finished Exit the Session.
+Nov 23 13:53:18 asklab systemd[1992]: Reached target Exit the Session.
+Nov 23 13:53:18 asklab systemd[1]: user@0.service: Deactivated successfully.
+Nov 23 13:53:18 asklab systemd[1]: Stopped User Manager for UID 0.
+Nov 23 13:53:18 asklab systemd[1]: Stopping User Runtime Directory /run/user/0...
+Nov 23 13:53:18 asklab systemd[1]: run-user-0.mount: Deactivated successfully.
+Nov 23 13:53:18 asklab systemd[1]: user-runtime-dir@0.service: Deactivated successfully.
+Nov 23 13:53:18 asklab systemd[1]: Stopped User Runtime Directory /run/user/0.
+Nov 23 13:53:18 asklab systemd[1]: Removed slice User Slice of UID 0.
+Nov 23 13:53:18 asklab systemd-resolved[795]: Clock change detected. Flushing caches.
+Nov 23 13:53:18 asklab sshd[2250]: Accepted publickey for root from 192.168.56.1 port 43506 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:53:18 asklab sshd[2250]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:18 asklab systemd[1]: Created slice User Slice of UID 0.
+Nov 23 13:53:18 asklab systemd[1]: Starting User Runtime Directory /run/user/0...
+Nov 23 13:53:18 asklab systemd-logind[841]: New session 17 of user root.
+Nov 23 13:53:18 asklab systemd[1]: Finished User Runtime Directory /run/user/0.
+Nov 23 13:53:18 asklab systemd[1]: Starting User Manager for UID 0...
+Nov 23 13:53:18 asklab systemd[2253]: pam_unix(systemd-user:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:18 asklab systemd[2253]: Queued start job for default target Main User Target.
+Nov 23 13:53:18 asklab systemd[2253]: Created slice User Application Slice.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Paths.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Timers.
+Nov 23 13:53:18 asklab systemd[2253]: Starting D-Bus User Message Bus Socket...
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG network certificate management daemon.
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG cryptographic agent and passphrase cache (restricted).
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG cryptographic agent (ssh-agent emulation).
+Nov 23 13:53:18 asklab systemd[2253]: Listening on GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:53:18 asklab systemd[2253]: Listening on debconf communication socket.
+Nov 23 13:53:18 asklab systemd[2253]: Listening on REST API socket for snapd user session agent.
+Nov 23 13:53:18 asklab systemd[2253]: Listening on D-Bus User Message Bus Socket.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Sockets.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Basic System.
+Nov 23 13:53:18 asklab systemd[2253]: Reached target Main User Target.
+Nov 23 13:53:18 asklab systemd[2253]: Startup finished in 62ms.
+Nov 23 13:53:18 asklab systemd[1]: Started User Manager for UID 0.
+Nov 23 13:53:18 asklab systemd[1]: Started Session 17 of User root.
+Nov 23 13:53:18 asklab sshd[2250]: Received disconnect from 192.168.56.1 port 43506:11: disconnected by user
+Nov 23 13:53:18 asklab sshd[2250]: Disconnected from user root 192.168.56.1 port 43506
+Nov 23 13:53:18 asklab sshd[2250]: pam_unix(sshd:session): session closed for user root
+Nov 23 13:53:18 asklab systemd[1]: session-17.scope: Deactivated successfully.
+Nov 23 13:53:18 asklab systemd-logind[841]: Session 17 logged out. Waiting for processes to exit.
+Nov 23 13:53:18 asklab systemd-logind[841]: Removed session 17.
+Nov 23 13:53:28 asklab systemd[1]: Stopping User Manager for UID 0...
+Nov 23 13:53:28 asklab systemd[2253]: Stopped target Main User Target.
+Nov 23 13:53:28 asklab systemd[2253]: Stopped target Basic System.
+Nov 23 13:53:28 asklab systemd[2253]: Stopped target Paths.
+Nov 23 13:53:28 asklab systemd[2253]: Stopped target Sockets.
+Nov 23 13:53:28 asklab systemd[2253]: Stopped target Timers.
+Nov 23 13:53:28 asklab systemd[2253]: Closed D-Bus User Message Bus Socket.
+Nov 23 13:53:28 asklab systemd[2253]: Closed GnuPG network certificate management daemon.
+Nov 23 13:53:28 asklab systemd[2253]: Closed GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Nov 23 13:53:28 asklab systemd[2253]: Closed GnuPG cryptographic agent and passphrase cache (restricted).
+Nov 23 13:53:28 asklab systemd[2253]: Closed GnuPG cryptographic agent (ssh-agent emulation).
+Nov 23 13:53:28 asklab systemd[2253]: Closed GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:53:28 asklab systemd[2253]: Closed debconf communication socket.
+Nov 23 13:53:28 asklab systemd[2253]: Closed REST API socket for snapd user session agent.
+Nov 23 13:53:28 asklab systemd[2253]: Removed slice User Application Slice.
+Nov 23 13:53:28 asklab systemd[2253]: Reached target Shutdown.
+Nov 23 13:53:28 asklab systemd[2253]: Finished Exit the Session.
+Nov 23 13:53:28 asklab systemd[2253]: Reached target Exit the Session.
+Nov 23 13:53:28 asklab systemd[1]: user@0.service: Deactivated successfully.
+Nov 23 13:53:28 asklab systemd[1]: Stopped User Manager for UID 0.
+Nov 23 13:53:28 asklab systemd[1]: Stopping User Runtime Directory /run/user/0...
+Nov 23 13:53:28 asklab systemd[1]: run-user-0.mount: Deactivated successfully.
+Nov 23 13:53:28 asklab systemd[1]: user-runtime-dir@0.service: Deactivated successfully.
+Nov 23 13:53:28 asklab systemd[1]: Stopped User Runtime Directory /run/user/0.
+Nov 23 13:53:28 asklab systemd[1]: Removed slice User Slice of UID 0.
+Nov 23 13:53:45 asklab sshd[2313]: Accepted publickey for root from 192.168.56.1 port 57566 ssh2: RSA SHA256:S7q6N9UBNSlnRn9QaR8ZSOMp3oWyy3kn9T7Yn2O9cqY
+Nov 23 13:53:45 asklab sshd[2313]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:45 asklab systemd[1]: Created slice User Slice of UID 0.
+Nov 23 13:53:45 asklab systemd[1]: Starting User Runtime Directory /run/user/0...
+Nov 23 13:53:45 asklab systemd-logind[841]: New session 19 of user root.
+Nov 23 13:53:45 asklab systemd[1]: Finished User Runtime Directory /run/user/0.
+Nov 23 13:53:45 asklab systemd[1]: Starting User Manager for UID 0...
+Nov 23 13:53:45 asklab systemd[2318]: pam_unix(systemd-user:session): session opened for user root(uid=0) by (uid=0)
+Nov 23 13:53:45 asklab systemd[2318]: Queued start job for default target Main User Target.
+Nov 23 13:53:45 asklab systemd[2318]: Created slice User Application Slice.
+Nov 23 13:53:45 asklab systemd[2318]: Reached target Paths.
+Nov 23 13:53:45 asklab systemd[2318]: Reached target Timers.
+Nov 23 13:53:45 asklab systemd[2318]: Starting D-Bus User Message Bus Socket...
+Nov 23 13:53:45 asklab systemd[2318]: Listening on GnuPG network certificate management daemon.
+Nov 23 13:53:45 asklab systemd[2318]: Listening on GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Nov 23 13:53:45 asklab systemd[2318]: Listening on GnuPG cryptographic agent and passphrase cache (restricted).
+Nov 23 13:53:45 asklab systemd[2318]: Listening on GnuPG cryptographic agent (ssh-agent emulation).
+Nov 23 13:53:45 asklab systemd[2318]: Listening on GnuPG cryptographic agent and passphrase cache.
+Nov 23 13:53:45 asklab systemd[2318]: Listening on debconf communication socket.
+Nov 23 13:53:45 asklab systemd[2318]: Listening on REST API socket for snapd user session agent.
+Nov 23 13:53:45 asklab systemd[2318]: Listening on D-Bus User Message Bus Socket.
+Nov 23 13:53:45 asklab systemd[2318]: Reached target Sockets.
+Nov 23 13:53:45 asklab systemd[2318]: Reached target Basic System.
+Nov 23 13:53:45 asklab systemd[1]: Started User Manager for UID 0.
+Nov 23 13:53:45 asklab systemd[1]: Started Session 19 of User root.
+Nov 23 13:53:45 asklab systemd[2318]: Reached target Main User Target.
+Nov 23 13:53:45 asklab systemd[2318]: Startup finished in 76ms.
+
+
+============================================================
+Timestamp: 2025-11-23 14:54:00 +0100
+Action: reboot_results
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 14:53:59 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 14:54:00 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 14:53:59 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 14:57:50 +0100
+Action: shutdown_results
+------------------------------------------------------------
+=== Operation: shutdown ===
+Date: Sun 23 Nov 14:57:49 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 14:57:50 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: shutdown ===
+Date: Sun 23 Nov 14:57:49 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 14:59:35 +0100
+Action: update_results
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 14:59:34 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Starting system update on asklab...
+bash: line 11: syntax error: unexpected end of file
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Starting system update on asklab...
+bash: line 11: syntax error: unexpected end of file
+
+
+============================================================
+Timestamp: 2025-11-23 14:59:35 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 14:59:34 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Starting system update on asklab...
+bash: line 11: syntax error: unexpected end of file
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Starting system update on asklab...
+bash: line 11: syntax error: unexpected end of file
+
+
+============================================================
+Timestamp: 2025-11-23 15:02:37 +0100
+Action: update_results
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 15:02:13 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Starting system update on asklab...
+Using APT package manager...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://pl.archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://pl.archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:3 http://pl.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Hit:4 http://pl.archive.ubuntu.com/ubuntu jammy-security InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+96 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 96 not upgraded.
+Update completed successfully on asklab
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Starting system update on asklab...
+Using APT package manager...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://pl.archive.ubuntu.com/ubuntu jammy InRelease
+Get:2 http://pl.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:3 http://pl.archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:4 http://pl.archive.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Fetched 384 kB in 1s (498 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+96 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 96 not upgraded.
+Update completed successfully on asklab
+
+
+============================================================
+Timestamp: 2025-11-23 15:02:37 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 15:02:13 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Starting system update on asklab...
+Using APT package manager...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://pl.archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://pl.archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:3 http://pl.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Hit:4 http://pl.archive.ubuntu.com/ubuntu jammy-security InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+96 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 96 not upgraded.
+Update completed successfully on asklab
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Starting system update on asklab...
+Using APT package manager...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://pl.archive.ubuntu.com/ubuntu jammy InRelease
+Get:2 http://pl.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:3 http://pl.archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:4 http://pl.archive.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Fetched 384 kB in 1s (498 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+96 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 96 not upgraded.
+Update completed successfully on asklab
+
+
+============================================================
+Timestamp: 2025-11-23 15:08:55 +0100
+Action: shutdown_results
+------------------------------------------------------------
+=== Operation: shutdown ===
+Date: Sun 23 Nov 15:08:55 CET 2025
+Target IPs: 192.168.56.10
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 15:08:55 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: shutdown ===
+Date: Sun 23 Nov 15:08:55 CET 2025
+Target IPs: 192.168.56.10
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 15:27:36 +0100
+Action: update_results
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 15:27:22 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Starting system update on asklab...
+Using APT package manager...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://pl.archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://pl.archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:3 http://pl.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Hit:4 http://pl.archive.ubuntu.com/ubuntu jammy-security InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+96 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 96 not upgraded.
+Update completed successfully on asklab
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Starting system update on asklab...
+Using APT package manager...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://pl.archive.ubuntu.com/ubuntu jammy InRelease
+Get:2 http://pl.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Hit:3 http://pl.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Get:4 http://pl.archive.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Fetched 257 kB in 1s (499 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+96 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 96 not upgraded.
+Update completed successfully on asklab
+
+
+============================================================
+Timestamp: 2025-11-23 15:27:36 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 15:27:22 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Starting system update on asklab...
+Using APT package manager...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://pl.archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://pl.archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:3 http://pl.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Hit:4 http://pl.archive.ubuntu.com/ubuntu jammy-security InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+96 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 96 not upgraded.
+Update completed successfully on asklab
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Starting system update on asklab...
+Using APT package manager...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://pl.archive.ubuntu.com/ubuntu jammy InRelease
+Get:2 http://pl.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Hit:3 http://pl.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Get:4 http://pl.archive.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Fetched 257 kB in 1s (499 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+96 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 96 not upgraded.
+Update completed successfully on asklab
+
+
+============================================================
+Timestamp: 2025-11-23 17:19:12 +0100
+Action: reboot_results
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 17:19:09 CET 2025
+Target IPs: 192.168.56.30
+
+>>> windows1 (192.168.56.30) [windows] <<<
+Rebooting system...
+
+
+============================================================
+Timestamp: 2025-11-23 17:19:12 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 17:19:09 CET 2025
+Target IPs: 192.168.56.30
+
+>>> windows1 (192.168.56.30) [windows] <<<
+Rebooting system...
+
+
+============================================================
+Timestamp: 2025-11-23 20:08:18 +0100
+Action: reboot_results
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 20:08:17 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 20:08:18 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: Sun 23 Nov 20:08:17 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+
+============================================================
+Timestamp: 2025-11-23 20:51:24 +0100
+Action: update_results
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 20:50:59 CET 2025
+Target IPs: 192.168.56.40
+
+>>> windows2 (192.168.56.40) [windows] <<<
+Enabling Windows Update service...
+Installing PSWindowsUpdate module...
+Module installed successfully.
+Searching, downloading and installing updates...
+This may take several minutes depending on available updates.
+VERBOSE: WIN-1CCGK8QMHGU (11/23/2025 11:51:09 AM): Connecting to Windows Update server. Please wait...
+VERBOSE: Found [6] Updates in pre search criteria
+Get-WindowsUpdate : Win32 internal error "Access is denied" 0x5 occurred while reading the console output buffer. 
+Contact Microsoft Customer Support Services.
+At line:1 char:1
++ Get-WindowsUpdate -AcceptAll -Install -IgnoreReboot -Verbose
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ReadError: (:) [Get-WindowsUpdate], HostException
+    + FullyQualifiedErrorId : ReadConsoleOutput,PSWindowsUpdate.GetWindowsUpdate
+ 
+Update process completed.
+Check if reboot is required with: Get-WURebootStatus
+
+
+============================================================
+Timestamp: 2025-11-23 20:51:24 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 20:50:59 CET 2025
+Target IPs: 192.168.56.40
+
+>>> windows2 (192.168.56.40) [windows] <<<
+Enabling Windows Update service...
+Installing PSWindowsUpdate module...
+Module installed successfully.
+Searching, downloading and installing updates...
+This may take several minutes depending on available updates.
+VERBOSE: WIN-1CCGK8QMHGU (11/23/2025 11:51:09 AM): Connecting to Windows Update server. Please wait...
+VERBOSE: Found [6] Updates in pre search criteria
+Get-WindowsUpdate : Win32 internal error "Access is denied" 0x5 occurred while reading the console output buffer. 
+Contact Microsoft Customer Support Services.
+At line:1 char:1
++ Get-WindowsUpdate -AcceptAll -Install -IgnoreReboot -Verbose
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ReadError: (:) [Get-WindowsUpdate], HostException
+    + FullyQualifiedErrorId : ReadConsoleOutput,PSWindowsUpdate.GetWindowsUpdate
+ 
+Update process completed.
+Check if reboot is required with: Get-WURebootStatus
+
+
+============================================================
+Timestamp: 2025-11-23 20:53:17 +0100
+Action: update_results
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 20:53:15 CET 2025
+Target IPs: 192.168.56.40
+
+>>> windows2 (192.168.56.40) [windows] <<<
+Enabling Windows Update service...
+Searching for updates...
+
+
+============================================================
+Timestamp: 2025-11-23 20:53:17 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: update ===
+Date: Sun 23 Nov 20:53:15 CET 2025
+Target IPs: 192.168.56.40
+
+>>> windows2 (192.168.56.40) [windows] <<<
+Enabling Windows Update service...
+Searching for updates...
+
+

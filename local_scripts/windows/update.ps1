@@ -1,11 +1,11 @@
 # ============================================
-# Script: Actualizar-SSH-Rapido.ps1
-# Versión rápida sin análisis DISM
+# Script: Update-SSH-Quick.ps1
+# Quick version without DISM analysis
 # ============================================
 
-Write-Host "Habilitando el servicio de Windows Update..." -ForegroundColor Cyan
+Write-Host "Enabling Windows Update service..." -ForegroundColor Cyan
 Set-Service wuauserv -StartupType Automatic
 Start-Service wuauserv
 
-Write-Host "Buscando actualizaciones..." -ForegroundColor Cyan
+Write-Host "Searching for updates..." -ForegroundColor Cyan
 usoclient StartInteractiveScan

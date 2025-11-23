@@ -1,4 +1,5 @@
 $hostname = hostname
+
 # Try Get-NetIPAddress; fallback to WMI-based IP retrieval
 $ip = $null
 if (Get-Command Get-NetIPAddress -ErrorAction SilentlyContinue) {

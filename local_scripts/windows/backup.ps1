@@ -1,65 +1,65 @@
 # ============================================================================
-# SCRIPT DE BACKUP PARA WINDOWS (PowerShell)
+# BACKUP SCRIPT FOR WINDOWS (PowerShell)
 # ============================================================================
-# Este script crea un archivo comprimido de las rutas especificadas
-# y retorna la ruta del archivo generado
+# This script creates a compressed archive of specified paths
+# and returns the path of the generated file
 # ============================================================================
 
 param(
-    [string]$Paths,      # Rutas separadas por espacios (ej: "C:\Users\Admin\Documents C:\inetpub")
-    [string]$DestFolder  # Carpeta de destino para el backup
+    [string]$Paths,      # Paths separated by spaces (e.g.: "C:\Users\Admin\Documents C:\inetpub")
+    [string]$DestFolder  # Destination folder for the backup
 )
 
-# Validar parámetros
+# Validate parameters
 if ([string]::IsNullOrEmpty($Paths) -or [string]::IsNullOrEmpty($DestFolder)) {
-    Write-Error "Uso: .\backup.ps1 -Paths '<rutas>' -DestFolder '<destino>'"
+    Write-Error "Usage: .\backup.ps1 -Paths '<paths>' -DestFolder '<destination>'"
     exit 1
 }
 
-# Configuración
+# Configuration
 $timestamp = Get-Date -Format "yyyy-MM-dd_HHmm"
 $hostname = $env:COMPUTERNAME
 $tempFile = "C:\Windows\Temp\backup-$hostname-$timestamp.tar.gz"
 
-# Separar las rutas
+# Separate the paths
 $pathArray = $Paths -split ' '
 
-Write-Host "Iniciando backup de Windows..."
-Write-Host "Rutas a respaldar: $Paths"
+Write-Host "Starting Windows backup..."
+Write-Host "Paths to backup: $Paths"
 
-# Verificar que las rutas existan
+# Verify that paths exist
 $validPaths = @()
 foreach ($path in $pathArray) {
     if (Test-Path $path) {
         $validPaths += $path
-        Write-Host "✓ Ruta válida: $path"
+        Write-Host "✓ Valid path: $path"
     } else {
-        Write-Warning "✗ Ruta no encontrada: $path (se omitirá)"
+        Write-Warning "✗ Path not found: $path (will be skipped)"
     }
 }
 
 if ($validPaths.Count -eq 0) {
-    Write-Error "ERROR: Ninguna ruta válida para respaldar"
+    Write-Error "ERROR: No valid paths to backup"
     exit 1
 }
 
-# Crear el archivo tar.gz usando tar nativo de Windows 10/11
-# (Windows 10 1803+ incluye tar.exe nativamente)
+# Create tar.gz file using Windows 10/11 native tar
+# (Windows 10 1803+ includes tar.exe natively)
 try {
-    # Cambiar al directorio raíz para evitar problemas con rutas absolutas
+    # Change to root directory to avoid issues with absolute paths
     Push-Location C:\
     
-    # Crear lista de rutas relativas
+    # Create list of relative paths
     $relativePaths = @()
     foreach ($path in $validPaths) {
-        # Convertir C:\Users\Admin a Users\Admin
+        # Convert C:\Users\Admin to Users\Admin
         $relativePath = $path -replace '^[A-Za-z]:\\', ''
         $relativePaths += $relativePath
     }
     
-    Write-Host "Comprimiendo archivos..."
+    Write-Host "Compressing files..."
     
-    # Usar tar nativo de Windows
+    # Use Windows native tar
     $tarArgs = @('-czf', $tempFile) + $relativePaths
     & tar.exe $tarArgs
     
@@ -67,18 +67,18 @@ try {
     
     if (Test-Path $tempFile) {
         $fileSize = (Get-Item $tempFile).Length / 1MB
-        Write-Host "✓ Backup completado exitosamente"
-        Write-Host "Archivo: $tempFile"
-        Write-Host "Tamaño: $([math]::Round($fileSize, 2)) MB"
+        Write-Host "✓ Backup completed successfully"
+        Write-Host "File: $tempFile"
+        Write-Host "Size: $([math]::Round($fileSize, 2)) MB"
         
-        # Retornar la ruta del archivo (esto es lo que captura el script bash)
+        # Return the file path (this is what the bash script captures)
         Write-Output $tempFile
     } else {
-        Write-Error "ERROR: No se pudo crear el archivo de backup"
+        Write-Error "ERROR: Could not create backup file"
         exit 1
     }
     
 } catch {
-    Write-Error "ERROR durante la compresión: $_"
+    Write-Error "ERROR during compression: $_"
     exit 1
 }

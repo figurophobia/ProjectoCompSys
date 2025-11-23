@@ -1,4 +1,5 @@
 # Prefer logical disk since it provides size and free space
+
 if (Get-Command Get-CimInstance -ErrorAction SilentlyContinue) {
 $disk = Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='C:'" -ErrorAction SilentlyContinue
 } else {
