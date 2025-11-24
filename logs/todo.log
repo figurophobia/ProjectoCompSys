@@ -1395,3 +1395,35 @@ Generated: Mon 24 Nov 11:39:56 CET 2025
 ==============================
 Total: 2 online, 1 offline
 
+============================================================
+Timestamp: 2025-11-24 16:31:27 +0100
+Action: reboot_results
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: lun 24 nov 2025 16:31:19 CET
+Target IPs: 192.168.56.20 192.168.56.30
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+>>> windows1 (192.168.56.30) [windows] <<<
+Rebooting system...
+
+
+============================================================
+Timestamp: 2025-11-24 16:31:27 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: reboot ===
+Date: lun 24 nov 2025 16:31:19 CET
+Target IPs: 192.168.56.20 192.168.56.30
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Rebooting system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+>>> windows1 (192.168.56.30) [windows] <<<
+Rebooting system...
+
+

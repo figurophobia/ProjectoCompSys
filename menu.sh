@@ -22,28 +22,7 @@ WINDOWS_BACKUP_SOURCES='C:\Users\Administrator\Documents C:\inetpub'
 mkdir -p "$LINUX_BACKUP_DIR" "$WINDOWS_BACKUP_DIR"
 
 
-# ============================================================================
-# Verify that dialog, ssh and sshpass are installed
-# ============================================================================
-check_dependencies() {
-    if ! command -v dialog &> /dev/null; then
-        echo "Error: 'dialog' is not installed."
-        echo "Install: sudo pacman -S dialog"
-        exit 1
-    fi
-    
-    if ! command -v ssh &> /dev/null; then
-        echo "Error: 'ssh' is not installed."
-        echo "Install: sudo pacman -S openssh"
-        exit 1
-    fi
-    
-    if ! command -v sshpass &> /dev/null; then
-        echo "Error: 'sshpass' is not installed."
-        echo "Install: sudo pacman -S sshpass"
-        exit 1
-    fi
-}
+ 
 
 
 # ============================================================================
@@ -751,5 +730,4 @@ execute_custom_command() {
 # ============================================================================
 # SCRIPT START
 # ============================================================================
-check_dependencies
 main_menu
