@@ -72,60 +72,6 @@ save_log() {
 }
 
 # ============================================================================
-# Execute a local script on a remote host
-# $1: Host IP
-# $2: Local script path
-# $3: Optional arguments
-# ============================================================================
-execute_local_script_remote() {
-    local host=$1
-    local script_path=$2
-    local args="${3:-}"
-    
-    [ ! -f "$script_path" ] && echo "ERROR: Script not found: $script_path" && return 1
-    
-    # Detect if Windows or Linux
-    local os_type=$(grep "$host" "$CONFIG_FILE" | cut -d'|' -f3)
-    
-    if [ "$os_type" = "windows" ]; then
-        # For Windows: send PowerShell script via stdin
-        # Use flags to run PowerShell non-interactively and bypass execution policy.
-        # Use quieter SSH/sshpass flags and avoid persisting host keys to suppress warnings.
-        if [[ "$script_path" == *.ps1 ]]; then
-            # PowerShell script: send it via stdin to powershell non-interactively
-            sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile  -ExecutionPolicy Bypass -Command -" < "$script_path" 2>&1
-        else
-            # Direct command
-            sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile  -ExecutionPolicy Bypass -Command \"$args\"" 2>&1
-        fi
-    else
-        # For Linux: normal SSH
-        ssh -o ConnectTimeout=5 "${SSH_USER}@${host}" "bash -s $args" < "$script_path" 2>&1
-    fi
-}
-
-# ============================================================================
-# Execute a direct command on a remote host
-# $1: Host IP
-# $2: Command to execute
-# ============================================================================
-ssh_exec() {
-    local host=$1
-    local command=$2
-    
-    # Detect if Windows or Linux
-    local os_type=$(grep "$host" "$CONFIG_FILE" | cut -d'|' -f3)
-    
-    if [ "$os_type" = "windows" ]; then
-    # For Windows: use sshpass with PowerShell (silence SSH warnings)
-    sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"$command\"" 2>&1
-    else
-        # For Linux: normal SSH
-        ssh -o ConnectTimeout=5 "${SSH_USER}@${host}" "$command" 2>&1
-    fi
-}
-
-# ============================================================================
 # Check if a host is online (ping)
 # $1: Host IP
 # Returns: 0 if online, 1 if offline
@@ -163,6 +109,54 @@ get_selected_ips() {
     fi
     
     echo "${ips[@]}"
+}
+
+# ============================================================================
+# View status (online/offline) of all hosts
+# ============================================================================
+check_all_hosts_status() {
+    [ ! -f "$CONFIG_FILE" ] && dialog --msgbox "Error: Config not found!" 8 50 && return 1
+    
+    local temp=$(mktemp)
+    echo "HOST STATUS REPORT" > "$temp"
+    echo "Generated: $(date)" >> "$temp"
+    echo "==============================" >> "$temp"
+    echo "" >> "$temp"
+    
+    local online=0 offline=0
+    
+    while IFS='|' read -r hostname ip os_type; do
+        if check_host_online "$ip"; then
+            echo "✓ ONLINE  - $hostname ($ip) [$os_type]" >> "$temp"
+            ((online++))
+        else
+            echo "● OFFLINE - $hostname ($ip) [$os_type]" >> "$temp"
+            ((offline++))
+        fi
+    done < "$CONFIG_FILE"
+    
+    echo "" >> "$temp"
+    echo "==============================" >> "$temp"
+    echo "Total: $online online, $offline offline" >> "$temp"
+    
+    # Save a copy to logs and show
+    save_log "$temp" "host_status"
+    dialog --title "Host Status" --textbox "$temp" 20 60
+    rm -f "$temp"
+}
+
+# ============================================================================
+# Show configuration file contents
+# ============================================================================
+view_hosts() {
+    [ -f "$CONFIG_FILE" ] && dialog --textbox "$CONFIG_FILE" 20 70 || dialog --msgbox "Config not found!" 8 40
+}
+
+# ============================================================================
+# Open configuration file in an editor
+# ============================================================================
+edit_config() {
+    [ -f "$CONFIG_FILE" ] && ${EDITOR:-nano} "$CONFIG_FILE" || dialog --msgbox "Config not found!" 8 40
 }
 
 # ============================================================================
@@ -295,37 +289,76 @@ monitoring_menu() {
 }
 
 # ============================================================================
-# View status (online/offline) of all hosts
+# MENU: Manage Hosts
 # ============================================================================
-check_all_hosts_status() {
-    [ ! -f "$CONFIG_FILE" ] && dialog --msgbox "Error: Config not found!" 8 50 && return 1
+manage_hosts_menu() {
+    while true; do
+        CHOICE=$(dialog --stdout --title "Manage Hosts" \
+            --menu "Select option:" 12 50 3 \
+            1 "View Hosts" \
+            2 "Edit Config" \
+            3 "Back")
+        
+        case $CHOICE in
+            1) view_hosts ;;
+            2) edit_config ;;
+            *) return ;;
+        esac
+    done
+}
+
+# ============================================================================
+# Execute a local script on a remote host
+# $1: Host IP
+# $2: Local script path
+# $3: Optional arguments
+# ============================================================================
+execute_local_script_remote() {
+    local host=$1
+    local script_path=$2
+    local args="${3:-}"
     
-    local temp=$(mktemp)
-    echo "HOST STATUS REPORT" > "$temp"
-    echo "Generated: $(date)" >> "$temp"
-    echo "==============================" >> "$temp"
-    echo "" >> "$temp"
+    [ ! -f "$script_path" ] && echo "ERROR: Script not found: $script_path" && return 1
     
-    local online=0 offline=0
+    # Detect if Windows or Linux
+    local os_type=$(grep "$host" "$CONFIG_FILE" | cut -d'|' -f3)
     
-    while IFS='|' read -r hostname ip os_type; do
-        if check_host_online "$ip"; then
-            echo "✓ ONLINE  - $hostname ($ip) [$os_type]" >> "$temp"
-            ((online++))
+    if [ "$os_type" = "windows" ]; then
+        # For Windows: send PowerShell script via stdin
+        # Use flags to run PowerShell non-interactively and bypass execution policy.
+        # Use quieter SSH/sshpass flags and avoid persisting host keys to suppress warnings.
+        if [[ "$script_path" == *.ps1 ]]; then
+            # PowerShell script: send it via stdin to powershell non-interactively
+            sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile  -ExecutionPolicy Bypass -Command -" < "$script_path" 2>&1
         else
-            echo "● OFFLINE - $hostname ($ip) [$os_type]" >> "$temp"
-            ((offline++))
+            # Direct command
+            sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile  -ExecutionPolicy Bypass -Command \"$args\"" 2>&1
         fi
-    done < "$CONFIG_FILE"
+    else
+        # For Linux: normal SSH
+        ssh -o ConnectTimeout=5 "${SSH_USER}@${host}" "bash -s $args" < "$script_path" 2>&1
+    fi
+}
+
+# ============================================================================
+# Execute a direct command on a remote host
+# $1: Host IP
+# $2: Command to execute
+# ============================================================================
+ssh_exec() {
+    local host=$1
+    local command=$2
     
-    echo "" >> "$temp"
-    echo "==============================" >> "$temp"
-    echo "Total: $online online, $offline offline" >> "$temp"
+    # Detect if Windows or Linux
+    local os_type=$(grep "$host" "$CONFIG_FILE" | cut -d'|' -f3)
     
-    # Save a copy to logs and show
-    save_log "$temp" "host_status"
-    dialog --title "Host Status" --textbox "$temp" 20 60
-    rm -f "$temp"
+    if [ "$os_type" = "windows" ]; then
+    # For Windows: use sshpass with PowerShell (silence SSH warnings)
+    sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${host}" "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"$command\"" 2>&1
+    else
+        # For Linux: normal SSH
+        ssh -o ConnectTimeout=5 "${SSH_USER}@${host}" "$command" 2>&1
+    fi
 }
 
 # ============================================================================
@@ -713,39 +746,6 @@ execute_custom_command() {
     
     dialog --title "Results" --textbox "$temp" 22 70
     rm -f "$temp"
-}
-
-# ============================================================================
-# MENU: Manage Hosts
-# ============================================================================
-manage_hosts_menu() {
-    while true; do
-        CHOICE=$(dialog --stdout --title "Manage Hosts" \
-            --menu "Select option:" 12 50 3 \
-            1 "View Hosts" \
-            2 "Edit Config" \
-            3 "Back")
-        
-        case $CHOICE in
-            1) view_hosts ;;
-            2) edit_config ;;
-            *) return ;;
-        esac
-    done
-}
-
-# ============================================================================
-# Show configuration file contents
-# ============================================================================
-view_hosts() {
-    [ -f "$CONFIG_FILE" ] && dialog --textbox "$CONFIG_FILE" 20 70 || dialog --msgbox "Config not found!" 8 40
-}
-
-# ============================================================================
-# Open configuration file in an editor
-# ============================================================================
-edit_config() {
-    [ -f "$CONFIG_FILE" ] && ${EDITOR:-nano} "$CONFIG_FILE" || dialog --msgbox "Config not found!" 8 40
 }
 
 # ============================================================================

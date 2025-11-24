@@ -1278,3 +1278,120 @@ Enabling Windows Update service...
 Searching for updates...
 
 
+============================================================
+Timestamp: 2025-11-23 21:13:12 +0100
+Action: shutdown_results
+------------------------------------------------------------
+=== Operation: shutdown ===
+Date: Sun 23 Nov 21:13:09 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20 192.168.56.40
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+>>> windows2 (192.168.56.40) [windows] <<<
+Shutting down system...
+
+
+============================================================
+Timestamp: 2025-11-23 21:13:12 +0100
+Action: custom_command
+------------------------------------------------------------
+=== Operation: shutdown ===
+Date: Sun 23 Nov 21:13:09 CET 2025
+Target IPs: 192.168.56.10 192.168.56.20 192.168.56.40
+
+>>> linux1 (192.168.56.10) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.10 closed by remote host.
+
+>>> linux2 (192.168.56.20) [linux] <<<
+Shutting down system asklab...
+Connection to 192.168.56.20 closed by remote host.
+
+>>> windows2 (192.168.56.40) [windows] <<<
+Shutting down system...
+
+
+============================================================
+Timestamp: 2025-11-24 11:28:50 +0100
+Action: host_status
+------------------------------------------------------------
+HOST STATUS REPORT
+Generated: Mon 24 Nov 11:28:48 CET 2025
+==============================
+
+✓ ONLINE  - inux1 (192.168.56.10) [linux]
+● OFFLINE - linux2 (192.168.56.20) [linux]
+● OFFLINE - windows2 (192.168.56.40) [windows]
+✓ ONLINE  - windows1 (192.168.56.30) [windows]
+
+==============================
+Total: 2 online, 2 offline
+
+============================================================
+Timestamp: 2025-11-24 11:28:57 +0100
+Action: host_status
+------------------------------------------------------------
+HOST STATUS REPORT
+Generated: Mon 24 Nov 11:28:55 CET 2025
+==============================
+
+✓ ONLINE  - inux1 (192.168.56.10) [linux]
+● OFFLINE - linux2 (192.168.56.20) [linux]
+● OFFLINE - windows2 (192.168.56.40) [windows]
+✓ ONLINE  - windows1 (192.168.56.30) [windows]
+
+==============================
+Total: 2 online, 2 offline
+
+============================================================
+Timestamp: 2025-11-24 11:38:26 +0100
+Action: host_status
+------------------------------------------------------------
+HOST STATUS REPORT
+Generated: Mon 24 Nov 11:38:24 CET 2025
+==============================
+
+✓ ONLINE  - linux1 (192.168.56.10) [linux]
+● OFFLINE - linux2 (192.168.56.20) [linux]
+● OFFLINE - windows2 (192.168.56.40) [windows]
+
+==============================
+Total: 1 online, 2 offline
+
+============================================================
+Timestamp: 2025-11-24 11:38:47 +0100
+Action: host_status
+------------------------------------------------------------
+HOST STATUS REPORT
+Generated: Mon 24 Nov 11:38:45 CET 2025
+==============================
+
+✓ ONLINE  - linux1 (192.168.56.10) [linux]
+● OFFLINE - linux2 (192.168.56.20) [linux]
+● OFFLINE - windows2 (192.168.56.40) [windows]
+
+==============================
+Total: 1 online, 2 offline
+
+============================================================
+Timestamp: 2025-11-24 11:39:57 +0100
+Action: host_status
+------------------------------------------------------------
+HOST STATUS REPORT
+Generated: Mon 24 Nov 11:39:56 CET 2025
+==============================
+
+✓ ONLINE  - linux1 (192.168.56.10) [linux]
+● OFFLINE - linux2 (192.168.56.20) [linux]
+✓ ONLINE  - windows1 (192.168.56.30) [windows]
+
+==============================
+Total: 2 online, 1 offline
+
