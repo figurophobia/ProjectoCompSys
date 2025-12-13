@@ -1427,3 +1427,508 @@ Connection to 192.168.56.20 closed by remote host.
 Rebooting system...
 
 
+============================================================
+Timestamp: 2025-12-13 19:33:32 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 19:33:29 CET 2025
+Backup: backups/linux/backup-192.168.56.10-2025-12-13_192853.tar.gz
+Target: 192.168.56.10 (linux)
+
+Uploading backup to target...
+Extracting backup on target...
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 19:35:16 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 19:35:14 CET 2025
+Backup: backups/windows/backup-WIN-192.168.56.30-2025-12-13_192912.tar.gz
+Target: 192.168.56.30 (windows)
+
+Uploading backup to target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Extracting backup on target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Program Files/Windows Defender/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender'
+Program Files/Windows Defender/AmMonitoringInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmMonitoringInstall.mof'
+Program Files/Windows Defender/AMMonitoringProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AMMonitoringProvider.dll'
+Program Files/Windows Defender/AmStatusInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmStatusInstall.mof'
+Program Files/Windows Defender/ClientWMIInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ClientWMIInstall.mof'
+Program Files/Windows Defender/ConfigSecurityPolicy.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ConfigSecurityPolicy.exe'
+Program Files/Windows Defender/en-US/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\en-US'
+Program Files/Windows Defender/EppManifest.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\EppManifest.dll'
+Program Files/Windows Defender/FepUnregister.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\FepUnregister.mof'
+Program Files/Windows Defender/MpAsDesc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAsDesc.dll'
+Program Files/Windows Defender/MpAzSubmit.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAzSubmit.dll'
+Program Files/Windows Defender/MpClient.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpClient.dll'
+Program Files/Windows Defender/MpCmdRun.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCmdRun.exe'
+Program Files/Windows Defender/MpCommu.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCommu.dll'
+Program Files/Windows Defender/MpEvMsg.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpEvMsg.dll'
+Program Files/Windows Defender/MpOAV.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpOAV.dll'
+Program Files/Windows Defender/MpProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpProvider.dll'
+Program Files/Windows Defender/MpRtp.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpRtp.dll'
+Program Files/Windows Defender/MpSvc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpSvc.dll'
+Program Files/Windows Defender/MsMpCom.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpCom.dll'
+Program Files/Windows Defender/MsMpEng.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpEng.exe'
+Program Files/Windows Defender/MsMpLics.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpLics.dll'
+Program Files/Windows Defender/NisSrv.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\NisSrv.exe'
+Program Files/Windows Defender/Offline/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Offline'
+Program Files/Windows Defender/Platform/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Platform'
+Program Files/Windows Defender/ProtectionManagement.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.dll'
+Program Files/Windows Defender/ProtectionManagement.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.mof'
+Program Files/Windows Defender/ProtectionManagement_Uninstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement_Uninstall.mof'
+Program Files/Windows Defender/ThirdPartyNotices.txt: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ThirdPartyNotices.txt'
+tar.exe: Error exit delayed from previous errors.
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 19:45:10 +0100
+Action: delete_backup
+------------------------------------------------------------
+=== DELETE BACKUPS ===
+Date: Sat 13 Dec 19:45:10 CET 2025
+
+Deleting: backup-192.168.56.10-2025-12-13_192853.tar.gz...
+✓ Deleted successfully
+
+Deleting: backup-192.168.56.10-2025-12-13_192901.tar.gz...
+✓ Deleted successfully
+
+=====================
+Summary: 2 deleted, 0 failed
+
+============================================================
+Timestamp: 2025-12-13 19:45:27 +0100
+Action: delete_backup
+------------------------------------------------------------
+=== DELETE BACKUPS ===
+Date: Sat 13 Dec 19:45:27 CET 2025
+
+Deleting: backup-WIN-192.168.56.30-2025-12-13_192912.tar.gz...
+✓ Deleted successfully
+
+=====================
+Summary: 1 deleted, 0 failed
+
+============================================================
+Timestamp: 2025-12-13 19:45:39 +0100
+Action: delete_backup
+------------------------------------------------------------
+=== DELETE BACKUPS ===
+Date: Sat 13 Dec 19:45:39 CET 2025
+
+Deleting: backup-WIN-192.168.56.30-2025-12-13_192933.tar.gz...
+✓ Deleted successfully
+
+=====================
+Summary: 1 deleted, 0 failed
+
+============================================================
+Timestamp: 2025-12-13 19:48:27 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 19:48:25 CET 2025
+Backup: backups/linux/backup-192.168.56.10-2025-12-13_194630.tar.gz
+Target: 192.168.56.10 (linux)
+
+Uploading backup to target...
+Extracting backup on target...
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 19:56:47 +0100
+Action: delete_backup
+------------------------------------------------------------
+=== DELETE BACKUPS ===
+Date: Sat 13 Dec 19:56:47 CET 2025
+
+Deleting: backup-192.168.56.10-2025-12-13_194630.tar.gz...
+✓ Deleted successfully
+
+=====================
+Summary: 1 deleted, 0 failed
+
+============================================================
+Timestamp: 2025-12-13 19:56:52 +0100
+Action: delete_backup
+------------------------------------------------------------
+=== DELETE BACKUPS ===
+Date: Sat 13 Dec 19:56:52 CET 2025
+
+Deleting: backup-WIN-192.168.56.30-2025-12-13_194644.tar.gz...
+✓ Deleted successfully
+
+=====================
+Summary: 1 deleted, 0 failed
+
+============================================================
+Timestamp: 2025-12-13 20:02:51 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 20:02:26 CET 2025
+Backup: backups/linux/backup-192.168.56.10-2025-12-13_195658.tar.gz
+Target: 192.168.56.10 (linux)
+
+Uploading backup to target...
+Extracting backup on target...
+
+Cleaning old LVM snapshots...
+Removing /dev/ubuntu-vg/snap_backup_2025-11-23_1432...
+  Logical volume "snap_backup_2025-11-23_1432" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-11-23_143459...
+  Logical volume "snap_backup_2025-11-23_143459" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-11-24_112909...
+  Logical volume "snap_backup_2025-11-24_112909" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-11-24_162952...
+  Logical volume "snap_backup_2025-11-24_162952" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-11-24_165110...
+  Logical volume "snap_backup_2025-11-24_165110" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-11-24_165334...
+  Logical volume "snap_backup_2025-11-24_165334" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-11-24_172744...
+  Logical volume "snap_backup_2025-11-24_172744" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-11-24_175402...
+  Logical volume "snap_backup_2025-11-24_175402" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-11-24_183033...
+  Logical volume "snap_backup_2025-11-24_183033" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-12-13_184743...
+  Logical volume "snap_backup_2025-12-13_184743" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-12-13_192519...
+  Logical volume "snap_backup_2025-12-13_192519" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-12-13_192853...
+  Logical volume "snap_backup_2025-12-13_192853" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-12-13_192901...
+  Logical volume "snap_backup_2025-12-13_192901" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-12-13_194630...
+  Logical volume "snap_backup_2025-12-13_194630" successfully removed
+Removing /dev/ubuntu-vg/snap_backup_2025-12-13_195658...
+  Logical volume "snap_backup_2025-12-13_195658" successfully removed
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 20:03:39 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 20:03:36 CET 2025
+Backup: backups/windows/backup-WIN-192.168.56.30-2025-12-13_195710.tar.gz
+Target: 192.168.56.30 (windows)
+
+Uploading backup to target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Extracting backup on target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Program Files/Windows Defender/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender'
+Program Files/Windows Defender/AmMonitoringInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmMonitoringInstall.mof'
+Program Files/Windows Defender/AMMonitoringProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AMMonitoringProvider.dll'
+Program Files/Windows Defender/AmStatusInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmStatusInstall.mof'
+Program Files/Windows Defender/ClientWMIInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ClientWMIInstall.mof'
+Program Files/Windows Defender/ConfigSecurityPolicy.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ConfigSecurityPolicy.exe'
+Program Files/Windows Defender/en-US/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\en-US'
+Program Files/Windows Defender/EppManifest.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\EppManifest.dll'
+Program Files/Windows Defender/FepUnregister.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\FepUnregister.mof'
+Program Files/Windows Defender/MpAsDesc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAsDesc.dll'
+Program Files/Windows Defender/MpAzSubmit.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAzSubmit.dll'
+Program Files/Windows Defender/MpClient.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpClient.dll'
+Program Files/Windows Defender/MpCmdRun.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCmdRun.exe'
+Program Files/Windows Defender/MpCommu.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCommu.dll'
+Program Files/Windows Defender/MpEvMsg.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpEvMsg.dll'
+Program Files/Windows Defender/MpOAV.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpOAV.dll'
+Program Files/Windows Defender/MpProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpProvider.dll'
+Program Files/Windows Defender/MpRtp.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpRtp.dll'
+Program Files/Windows Defender/MpSvc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpSvc.dll'
+Program Files/Windows Defender/MsMpCom.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpCom.dll'
+Program Files/Windows Defender/MsMpEng.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpEng.exe'
+Program Files/Windows Defender/MsMpLics.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpLics.dll'
+Program Files/Windows Defender/NisSrv.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\NisSrv.exe'
+Program Files/Windows Defender/Offline/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Offline'
+Program Files/Windows Defender/Platform/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Platform'
+Program Files/Windows Defender/ProtectionManagement.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.dll'
+Program Files/Windows Defender/ProtectionManagement.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.mof'
+Program Files/Windows Defender/ProtectionManagement_Uninstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement_Uninstall.mof'
+Program Files/Windows Defender/ThirdPartyNotices.txt: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ThirdPartyNotices.txt'
+tar.exe: Error exit delayed from previous errors.
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 20:09:34 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 20:09:32 CET 2025
+Backup: backups/linux/backup-192.168.56.10-2025-12-13_195658.tar.gz
+Target: 192.168.56.10 (linux)
+
+Uploading backup to target...
+Extracting backup on target...
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 20:10:04 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 20:10:03 CET 2025
+Backup: backups/linux/backup-192.168.56.10-2025-12-13_195658.tar.gz
+Target: 192.168.56.10 (linux)
+
+Uploading backup to target...
+Extracting backup on target...
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 20:11:27 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 20:11:25 CET 2025
+Backup: backups/windows/backup-WIN-192.168.56.30-2025-12-13_195710.tar.gz
+Target: 192.168.56.30 (windows)
+
+Uploading backup to target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Extracting backup on target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Program Files/Windows Defender/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender'
+Program Files/Windows Defender/AmMonitoringInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmMonitoringInstall.mof'
+Program Files/Windows Defender/AMMonitoringProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AMMonitoringProvider.dll'
+Program Files/Windows Defender/AmStatusInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmStatusInstall.mof'
+Program Files/Windows Defender/ClientWMIInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ClientWMIInstall.mof'
+Program Files/Windows Defender/ConfigSecurityPolicy.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ConfigSecurityPolicy.exe'
+Program Files/Windows Defender/en-US/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\en-US'
+Program Files/Windows Defender/EppManifest.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\EppManifest.dll'
+Program Files/Windows Defender/FepUnregister.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\FepUnregister.mof'
+Program Files/Windows Defender/MpAsDesc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAsDesc.dll'
+Program Files/Windows Defender/MpAzSubmit.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAzSubmit.dll'
+Program Files/Windows Defender/MpClient.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpClient.dll'
+Program Files/Windows Defender/MpCmdRun.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCmdRun.exe'
+Program Files/Windows Defender/MpCommu.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCommu.dll'
+Program Files/Windows Defender/MpEvMsg.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpEvMsg.dll'
+Program Files/Windows Defender/MpOAV.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpOAV.dll'
+Program Files/Windows Defender/MpProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpProvider.dll'
+Program Files/Windows Defender/MpRtp.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpRtp.dll'
+Program Files/Windows Defender/MpSvc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpSvc.dll'
+Program Files/Windows Defender/MsMpCom.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpCom.dll'
+Program Files/Windows Defender/MsMpEng.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpEng.exe'
+Program Files/Windows Defender/MsMpLics.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpLics.dll'
+Program Files/Windows Defender/NisSrv.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\NisSrv.exe'
+Program Files/Windows Defender/Offline/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Offline'
+Program Files/Windows Defender/Platform/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Platform'
+Program Files/Windows Defender/ProtectionManagement.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.dll'
+Program Files/Windows Defender/ProtectionManagement.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.mof'
+Program Files/Windows Defender/ProtectionManagement_Uninstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement_Uninstall.mof'
+Program Files/Windows Defender/ThirdPartyNotices.txt: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ThirdPartyNotices.txt'
+tar.exe: Error exit delayed from previous errors.
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 20:12:16 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 20:12:13 CET 2025
+Backup: backups/windows/backup-WIN-192.168.56.30-2025-12-13_195710.tar.gz
+Target: 192.168.56.30 (windows)
+
+Uploading backup to target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Extracting backup on target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Program Files/Windows Defender/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender'
+Program Files/Windows Defender/AmMonitoringInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmMonitoringInstall.mof'
+Program Files/Windows Defender/AMMonitoringProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AMMonitoringProvider.dll'
+Program Files/Windows Defender/AmStatusInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmStatusInstall.mof'
+Program Files/Windows Defender/ClientWMIInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ClientWMIInstall.mof'
+Program Files/Windows Defender/ConfigSecurityPolicy.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ConfigSecurityPolicy.exe'
+Program Files/Windows Defender/en-US/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\en-US'
+Program Files/Windows Defender/EppManifest.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\EppManifest.dll'
+Program Files/Windows Defender/FepUnregister.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\FepUnregister.mof'
+Program Files/Windows Defender/MpAsDesc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAsDesc.dll'
+Program Files/Windows Defender/MpAzSubmit.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAzSubmit.dll'
+Program Files/Windows Defender/MpClient.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpClient.dll'
+Program Files/Windows Defender/MpCmdRun.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCmdRun.exe'
+Program Files/Windows Defender/MpCommu.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCommu.dll'
+Program Files/Windows Defender/MpEvMsg.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpEvMsg.dll'
+Program Files/Windows Defender/MpOAV.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpOAV.dll'
+Program Files/Windows Defender/MpProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpProvider.dll'
+Program Files/Windows Defender/MpRtp.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpRtp.dll'
+Program Files/Windows Defender/MpSvc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpSvc.dll'
+Program Files/Windows Defender/MsMpCom.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpCom.dll'
+Program Files/Windows Defender/MsMpEng.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpEng.exe'
+Program Files/Windows Defender/MsMpLics.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpLics.dll'
+Program Files/Windows Defender/NisSrv.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\NisSrv.exe'
+Program Files/Windows Defender/Offline/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Offline'
+Program Files/Windows Defender/Platform/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Platform'
+Program Files/Windows Defender/ProtectionManagement.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.dll'
+Program Files/Windows Defender/ProtectionManagement.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.mof'
+Program Files/Windows Defender/ProtectionManagement_Uninstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement_Uninstall.mof'
+Program Files/Windows Defender/ThirdPartyNotices.txt: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ThirdPartyNotices.txt'
+tar.exe: Error exit delayed from previous errors.
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 20:19:51 +0100
+Action: delete_backup
+------------------------------------------------------------
+=== DELETE BACKUPS ===
+Date: Sat 13 Dec 20:19:51 CET 2025
+
+Deleting: backup-WIN-192.168.56.30-2025-12-13_195710.tar.gz...
+✓ Deleted successfully
+
+=====================
+Summary: 1 deleted, 0 failed
+
+============================================================
+Timestamp: 2025-12-13 20:21:34 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 20:21:32 CET 2025
+Backup: backups/windows/backup-WIN-192.168.56.30-2025-12-13_202014.tar.gz
+Target: 192.168.56.30 (windows)
+
+Uploading backup to target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Extracting backup on target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Program Files/Windows Defender/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender'
+Program Files/Windows Defender/AmMonitoringInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmMonitoringInstall.mof'
+Program Files/Windows Defender/AMMonitoringProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AMMonitoringProvider.dll'
+Program Files/Windows Defender/AmStatusInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmStatusInstall.mof'
+Program Files/Windows Defender/ClientWMIInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ClientWMIInstall.mof'
+Program Files/Windows Defender/ConfigSecurityPolicy.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ConfigSecurityPolicy.exe'
+Program Files/Windows Defender/en-US/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\en-US'
+Program Files/Windows Defender/EppManifest.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\EppManifest.dll'
+Program Files/Windows Defender/FepUnregister.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\FepUnregister.mof'
+Program Files/Windows Defender/MpAsDesc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAsDesc.dll'
+Program Files/Windows Defender/MpAzSubmit.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAzSubmit.dll'
+Program Files/Windows Defender/MpClient.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpClient.dll'
+Program Files/Windows Defender/MpCmdRun.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCmdRun.exe'
+Program Files/Windows Defender/MpCommu.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCommu.dll'
+Program Files/Windows Defender/MpEvMsg.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpEvMsg.dll'
+Program Files/Windows Defender/MpOAV.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpOAV.dll'
+Program Files/Windows Defender/MpProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpProvider.dll'
+Program Files/Windows Defender/MpRtp.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpRtp.dll'
+Program Files/Windows Defender/MpSvc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpSvc.dll'
+Program Files/Windows Defender/MsMpCom.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpCom.dll'
+Program Files/Windows Defender/MsMpEng.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpEng.exe'
+Program Files/Windows Defender/MsMpLics.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpLics.dll'
+Program Files/Windows Defender/NisSrv.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\NisSrv.exe'
+Program Files/Windows Defender/Offline/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Offline'
+Program Files/Windows Defender/Platform/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Platform'
+Program Files/Windows Defender/ProtectionManagement.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.dll'
+Program Files/Windows Defender/ProtectionManagement.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.mof'
+Program Files/Windows Defender/ProtectionManagement_Uninstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement_Uninstall.mof'
+Program Files/Windows Defender/ThirdPartyNotices.txt: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ThirdPartyNotices.txt'
+tar.exe: Error exit delayed from previous errors.
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 20:24:15 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 20:24:13 CET 2025
+Backup: backups/linux/backup-192.168.56.10-2025-12-13_195658.tar.gz
+Target: 192.168.56.10 (linux)
+
+Uploading backup to target...
+Extracting backup on target...
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 20:24:23 +0100
+Action: restore_backup
+------------------------------------------------------------
+=== RESTORE BACKUP ===
+Date: Sat 13 Dec 20:24:21 CET 2025
+Backup: backups/windows/backup-WIN-192.168.56.30-2025-12-13_202014.tar.gz
+Target: 192.168.56.30 (windows)
+
+Uploading backup to target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Extracting backup on target...
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+Program Files/Windows Defender/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender'
+Program Files/Windows Defender/AmMonitoringInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmMonitoringInstall.mof'
+Program Files/Windows Defender/AMMonitoringProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AMMonitoringProvider.dll'
+Program Files/Windows Defender/AmStatusInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\AmStatusInstall.mof'
+Program Files/Windows Defender/ClientWMIInstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ClientWMIInstall.mof'
+Program Files/Windows Defender/ConfigSecurityPolicy.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ConfigSecurityPolicy.exe'
+Program Files/Windows Defender/en-US/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\en-US'
+Program Files/Windows Defender/EppManifest.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\EppManifest.dll'
+Program Files/Windows Defender/FepUnregister.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\FepUnregister.mof'
+Program Files/Windows Defender/MpAsDesc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAsDesc.dll'
+Program Files/Windows Defender/MpAzSubmit.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpAzSubmit.dll'
+Program Files/Windows Defender/MpClient.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpClient.dll'
+Program Files/Windows Defender/MpCmdRun.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCmdRun.exe'
+Program Files/Windows Defender/MpCommu.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpCommu.dll'
+Program Files/Windows Defender/MpEvMsg.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpEvMsg.dll'
+Program Files/Windows Defender/MpOAV.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpOAV.dll'
+Program Files/Windows Defender/MpProvider.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpProvider.dll'
+Program Files/Windows Defender/MpRtp.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpRtp.dll'
+Program Files/Windows Defender/MpSvc.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MpSvc.dll'
+Program Files/Windows Defender/MsMpCom.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpCom.dll'
+Program Files/Windows Defender/MsMpEng.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpEng.exe'
+Program Files/Windows Defender/MsMpLics.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\MsMpLics.dll'
+Program Files/Windows Defender/NisSrv.exe: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\NisSrv.exe'
+Program Files/Windows Defender/Offline/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Offline'
+Program Files/Windows Defender/Platform/: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\Platform'
+Program Files/Windows Defender/ProtectionManagement.dll: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.dll'
+Program Files/Windows Defender/ProtectionManagement.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement.mof'
+Program Files/Windows Defender/ProtectionManagement_Uninstall.mof: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ProtectionManagement_Uninstall.mof'
+Program Files/Windows Defender/ThirdPartyNotices.txt: Can't create '\\\\?\\C:\\\\Program Files\\Windows Defender\\ThirdPartyNotices.txt'
+tar.exe: Error exit delayed from previous errors.
+Warning: Permanently added '192.168.56.30' (ED25519) to the list of known hosts.
+
+✓ Restore completed
+
+============================================================
+Timestamp: 2025-12-13 20:30:43 +0100
+Action: delete_backup
+------------------------------------------------------------
+=== DELETE BACKUPS ===
+Date: Sat 13 Dec 20:30:43 CET 2025
+
+Deleting: backup-WIN-192.168.56.30-2025-12-13_202014.tar.gz...
+✓ Deleted successfully
+
+=====================
+Summary: 1 deleted, 0 failed
+
+============================================================
+Timestamp: 2025-12-13 20:30:47 +0100
+Action: delete_backup
+------------------------------------------------------------
+=== DELETE BACKUPS ===
+Date: Sat 13 Dec 20:30:47 CET 2025
+
+Deleting: backup-192.168.56.10-2025-12-13_195658.tar.gz...
+✓ Deleted successfully
+
+=====================
+Summary: 1 deleted, 0 failed
+

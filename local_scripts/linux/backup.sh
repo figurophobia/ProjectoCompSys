@@ -13,7 +13,7 @@ SSH_USER="root"
 # Run 'lsblk' or 'lvdisplay' on the remote to know these names.
 REMOTE_VG="ubuntu-vg"     # Volume Group name (e.g.: ubuntu-vg, centos)
 REMOTE_LV="ubuntu-lv"     # Logical Volume name where the data is (e.g.: root, data)
-SNAPSHOT_SIZE="512M"      # Size reserved for changes during backup (reduced to 512MB)
+SNAPSHOT_SIZE="256M"      # Size reserved for changes during backup (reduced to 256MB)
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
     echo "Usage: $0 <ip> \"<relative_path_inside_snapshot>\" <destination_dir>"

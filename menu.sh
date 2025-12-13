@@ -227,17 +227,345 @@ system_operations_menu() {
             1 "Reboot System(s)" \
             2 "Shutdown System(s)" \
             3 "Update System(s)" \
-            4 "Backup(s)" \
+            4 "Backup Management" \
             5 "Back")
         
         case $CHOICE in
             1) execute_operation "reboot" ;;
             2) execute_operation "shutdown" ;;
             3) execute_operation "update" ;;
-            4) execute_operation "backup" ;;
+            4) backup_menu ;;
             *) return ;;
         esac
     done
+}
+
+# ============================================================================
+# MENU: Backup Management
+# ============================================================================
+backup_menu() {
+    while true; do
+        CHOICE=$(dialog --stdout --title "Backup Management" \
+            --menu "Select option:" 14 60 5 \
+            1 "New Backup" \
+            2 "View Backups" \
+            3 "Restore Backup" \
+            4 "Delete Backup" \
+            5 "Back")
+        
+        case $CHOICE in
+            1) execute_backup_operation ;;
+            2) view_backups ;;
+            3) restore_backup ;;
+            4) delete_backup ;;
+            *) return ;;
+        esac
+    done
+}
+
+# ============================================================================
+# VIEW BACKUPS
+# ============================================================================
+view_backups() {
+    local temp=$(mktemp)
+    echo "=== AVAILABLE BACKUPS ===" > "$temp"
+    echo "" >> "$temp"
+    echo "Date: $(date)" >> "$temp"
+    echo "" >> "$temp"
+    
+    echo "--- Linux Backups ---" >> "$temp"
+    if [ -d "$LINUX_BACKUP_DIR" ] && [ "$(ls -A $LINUX_BACKUP_DIR 2>/dev/null)" ]; then
+        while IFS= read -r file; do
+            local filename=$(basename "$file")
+            local filesize=$(ls -lh "$file" | awk '{print $5}')
+            local filedate=$(ls -l "$file" | awk '{print $6, $7, $8}')
+            
+            # Extract hostname from filename (format: backup-hostname-timestamp.tar.gz)
+            local hostname=$(echo "$filename" | sed 's/^backup-//' | sed 's/-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_.*//')
+            
+            # Search for hostname in hosts.conf to get IP and name
+            local host_info=""
+            if [ -f "$CONFIG_FILE" ]; then
+                while IFS='|' read -r conf_hostname conf_ip conf_os; do
+                    if [[ "$hostname" == "$conf_hostname" || "$filename" == *"$conf_ip"* ]]; then
+                        host_info="[$conf_hostname - $conf_ip]"
+                        break
+                    fi
+                done < "$CONFIG_FILE"
+            fi
+            
+            [ -z "$host_info" ] && host_info="[Unknown host]"
+            
+            echo "• $filename" >> "$temp"
+            echo "  Size: $filesize | Date: $filedate" >> "$temp"
+            echo "  Host: $host_info" >> "$temp"
+            echo "" >> "$temp"
+        done < <(find "$LINUX_BACKUP_DIR" -type f -print | sort)
+    else
+        echo "No Linux backups found" >> "$temp"
+    fi
+    
+    echo "" >> "$temp"
+    echo "--- Windows Backups ---" >> "$temp"
+    if [ -d "$WINDOWS_BACKUP_DIR" ] && [ "$(ls -A $WINDOWS_BACKUP_DIR 2>/dev/null)" ]; then
+        while IFS= read -r file; do
+            local filename=$(basename "$file")
+            local filesize=$(ls -lh "$file" | awk '{print $5}')
+            local filedate=$(ls -l "$file" | awk '{print $6, $7, $8}')
+            
+            # Extract hostname from filename (format: backup-WIN-hostname-timestamp.tar.gz)
+            local hostname=$(echo "$filename" | sed 's/^backup-WIN-//' | sed 's/-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_.*//')
+            
+            # Search for hostname in hosts.conf to get IP and name
+            local host_info=""
+            if [ -f "$CONFIG_FILE" ]; then
+                while IFS='|' read -r conf_hostname conf_ip conf_os; do
+                    if [[ "$hostname" == "$conf_hostname" || "$filename" == *"$conf_ip"* ]]; then
+                        host_info="[$conf_hostname - $conf_ip]"
+                        break
+                    fi
+                done < "$CONFIG_FILE"
+            fi
+            
+            [ -z "$host_info" ] && host_info="[Unknown host]"
+            
+            echo "• $filename" >> "$temp"
+            echo "  Size: $filesize | Date: $filedate" >> "$temp"
+            echo "  Host: $host_info" >> "$temp"
+            echo "" >> "$temp"
+        done < <(find "$WINDOWS_BACKUP_DIR" -type f -print | sort)
+    else
+        echo "No Windows backups found" >> "$temp"
+    fi
+    
+    echo "" >> "$temp"
+    echo "=====================" >> "$temp"
+    
+    dialog --title "Available Backups" --textbox "$temp" 22 80
+    rm -f "$temp"
+}
+
+# ============================================================================
+# RESTORE BACKUP
+# ============================================================================
+restore_backup() {
+    # Step 1: Select OS type
+    local os_type=$(dialog --stdout --title "OS Type" --menu "Select OS:" 12 40 2 1 "Linux" 2 "Windows")
+    
+    local os backup_dir
+    case $os_type in
+        1) 
+            os="linux"
+            backup_dir="$LINUX_BACKUP_DIR"
+            ;;
+        2) 
+            os="windows"
+            backup_dir="$WINDOWS_BACKUP_DIR"
+            ;;
+        *) return ;;
+    esac
+    
+    # Step 2: List available backups for that OS
+    if [ ! -d "$backup_dir" ] || [ ! "$(ls -A $backup_dir 2>/dev/null)" ]; then
+        dialog --msgbox "No $os backups found in $backup_dir" 8 50
+        return
+    fi
+    
+    local options=()
+    local counter=1
+    while IFS= read -r -d '' file; do
+        local filename=$(basename "$file")
+        local filesize=$(ls -lh "$file" | awk '{print $5}')
+        local filedate=$(ls -l "$file" | awk '{print $6, $7, $8}')
+        options+=("$counter" "$filename ($filesize) [$filedate]")
+        ((counter++))
+    done < <(find "$backup_dir" -type f -print0 | sort -z)
+    
+    [ ${#options[@]} -eq 0 ] && dialog --msgbox "No backups found!" 8 40 && return
+    
+    local selected=$(dialog --stdout --menu "Select backup to restore:" 20 80 10 "${options[@]}")
+    [ -z "$selected" ] && return
+    
+    # Get the selected backup file
+    local backup_file=$(find "$backup_dir" -type f | sort | sed -n "${selected}p")
+    [ -z "$backup_file" ] && dialog --msgbox "Error selecting backup file" 8 50 && return
+    
+    # Step 3: Select target host
+    select_hosts_by_os "$os" || return
+    
+    local ips=($(get_selected_ips "$SELECTED_IPS"))
+    [ ${#ips[@]} -eq 0 ] && dialog --msgbox "No $os hosts ONLINE!" 8 50 && return
+    
+    # For simplicity, restore to first selected host
+    local target_ip="${ips[0]}"
+    
+    # Step 4: Confirm restore
+    local confirm_msg="RESTORE BACKUP?
+
+Backup: $(basename "$backup_file")
+Target: $target_ip ($os)
+
+WARNING: This will overwrite existing files!"
+    
+    dialog --yesno "$confirm_msg" 12 60 || return
+    
+    # Step 5: Execute restore
+    local temp=$(mktemp)
+    echo "=== RESTORE BACKUP ===" > "$temp"
+    echo "Date: $(date)" >> "$temp"
+    echo "Backup: $backup_file" >> "$temp"
+    echo "Target: $target_ip ($os)" >> "$temp"
+    echo "" >> "$temp"
+    
+    if [ "$os" == "linux" ]; then
+        echo "Uploading backup to target..." >> "$temp"
+        # Upload backup to remote system
+        scp -o ConnectTimeout=30 "$backup_file" "${SSH_USER}@${target_ip}:/tmp/" >> "$temp" 2>&1
+        
+        local remote_backup="/tmp/$(basename "$backup_file")"
+        echo "Extracting backup on target..." >> "$temp"
+        
+        # Extract backup
+        ssh -o ConnectTimeout=30 "${SSH_USER}@${target_ip}" "cd / && tar -xzf $remote_backup" >> "$temp" 2>&1
+        
+        # Cleanup
+        ssh -o ConnectTimeout=5 "${SSH_USER}@${target_ip}" "rm -f $remote_backup" >> "$temp" 2>&1
+        
+        echo "" >> "$temp"
+        echo "✓ Restore completed" >> "$temp"
+        
+    elif [ "$os" == "windows" ]; then
+        echo "Uploading backup to target..." >> "$temp"
+        # Upload backup to Windows system
+        sshpass -p "$WINDOWS_PASS" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$backup_file" "${WINDOWS_USER}@${target_ip}:C:\\Windows\\Temp\\" >> "$temp" 2>&1
+        
+        local remote_backup="C:\\Windows\\Temp\\$(basename "$backup_file")"
+        echo "Extracting backup on target..." >> "$temp"
+        
+        # Extract backup using tar on Windows with -C to specify base directory
+        sshpass -p "$WINDOWS_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${WINDOWS_USER}@${target_ip}" \
+            "tar.exe -xzf \"$remote_backup\" -C C:\\" >> "$temp" 2>&1
+        
+        # Cleanup
+        sshpass -p "$WINDOWS_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${WINDOWS_USER}@${target_ip}" \
+            "del \"$remote_backup\"" >> "$temp" 2>&1
+        
+        echo "" >> "$temp"
+        echo "✓ Restore completed" >> "$temp"
+    fi
+    
+    save_log "$temp" "restore_backup"
+    dialog --title "Restore Results" --textbox "$temp" 22 70
+    rm -f "$temp"
+}
+
+# ============================================================================
+# DELETE BACKUP
+# ============================================================================
+delete_backup() {
+    # Step 1: Select OS type
+    local os_type=$(dialog --stdout --title "OS Type" --menu "Select OS:" 12 40 2 1 "Linux" 2 "Windows")
+    
+    local os backup_dir
+    case $os_type in
+        1) 
+            os="linux"
+            backup_dir="$LINUX_BACKUP_DIR"
+            ;;
+        2) 
+            os="windows"
+            backup_dir="$WINDOWS_BACKUP_DIR"
+            ;;
+        *) return ;;
+    esac
+    
+    # Step 2: List available backups for that OS
+    if [ ! -d "$backup_dir" ] || [ ! "$(ls -A $backup_dir 2>/dev/null)" ]; then
+        dialog --msgbox "No $os backups found in $backup_dir" 8 50
+        return
+    fi
+    
+    local options=()
+    local counter=1
+    declare -A file_map
+    
+    while IFS= read -r -d '' file; do
+        local filename=$(basename "$file")
+        local filesize=$(ls -lh "$file" | awk '{print $5}')
+        local filedate=$(ls -l "$file" | awk '{print $6, $7, $8}')
+        
+        # Extract hostname/IP info
+        local host_info=""
+        if [ "$os" == "linux" ]; then
+            local hostname=$(echo "$filename" | sed 's/^backup-//' | sed 's/-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_.*//')
+        else
+            local hostname=$(echo "$filename" | sed 's/^backup-WIN-//' | sed 's/-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_.*//')
+        fi
+        
+        if [ -f "$CONFIG_FILE" ]; then
+            while IFS='|' read -r conf_hostname conf_ip conf_os; do
+                if [[ "$hostname" == "$conf_hostname" || "$filename" == *"$conf_ip"* ]]; then
+                    host_info="[$conf_hostname - $conf_ip]"
+                    break
+                fi
+            done < "$CONFIG_FILE"
+        fi
+        
+        [ -z "$host_info" ] && host_info="[$hostname]"
+        
+        options+=("$counter" "$filename ($filesize) $host_info" OFF)
+        file_map[$counter]="$file"
+        ((counter++))
+    done < <(find "$backup_dir" -type f -print0 | sort -z)
+    
+    [ ${#options[@]} -eq 0 ] && dialog --msgbox "No backups found!" 8 40 && return
+    
+    local selected=$(dialog --stdout --checklist "Select backups to DELETE:" 20 90 10 "${options[@]}")
+    [ -z "$selected" ] && return
+    
+    # Step 3: Confirm deletion
+    local selected_array=($selected)
+    local files_to_delete=()
+    local file_list=""
+    
+    for num in "${selected_array[@]}"; do
+        local clean_num=$(echo "$num" | tr -d '"')
+        local file="${file_map[$clean_num]}"
+        files_to_delete+=("$file")
+        file_list+="$(basename "$file")\n"
+    done
+    
+    local confirm_msg="DELETE ${#files_to_delete[@]} backup(s)?\n\n$file_list\nWARNING: This action cannot be undone!"
+    
+    dialog --yesno "$confirm_msg" 15 80 || return
+    
+    # Step 4: Delete files
+    local temp=$(mktemp)
+    echo "=== DELETE BACKUPS ===" > "$temp"
+    echo "Date: $(date)" >> "$temp"
+    echo "" >> "$temp"
+    
+    local deleted=0
+    local failed=0
+    
+    for file in "${files_to_delete[@]}"; do
+        echo "Deleting: $(basename "$file")..." >> "$temp"
+        if rm -f "$file" 2>> "$temp"; then
+            echo "✓ Deleted successfully" >> "$temp"
+            ((deleted++))
+        else
+            echo "✗ Failed to delete" >> "$temp"
+            ((failed++))
+        fi
+        echo "" >> "$temp"
+    done
+    
+    echo "=====================" >> "$temp"
+    echo "Summary: $deleted deleted, $failed failed" >> "$temp"
+    
+    save_log "$temp" "delete_backup"
+    dialog --title "Delete Results" --textbox "$temp" 22 70
+    rm -f "$temp"
 }
 
 # ============================================================================
@@ -440,10 +768,9 @@ execute_backup_operation() {
                 continue
             fi
             
-            # Step 2: Create filename
-            WIN_HOSTNAME=$(sshpass -p "$WINDOWS_PASS" ssh -q -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR "${WINDOWS_USER}@${ip}" "hostname" 2>&1 | tr -d '\r\n')
+            # Step 2: Create filename using IP
             TIMESTAMP=$(date +%Y-%m-%d_%H%M%S)
-            REMOTE_FILE_PATH="C:\\Windows\\Temp\\backup-${WIN_HOSTNAME:-$ip}-${TIMESTAMP}.tar.gz"
+            REMOTE_FILE_PATH="C:\\Windows\\Temp\\backup-WIN-${ip}-${TIMESTAMP}.tar.gz"
             
             echo "Destination file: $REMOTE_FILE_PATH" >> "$temp"
             
@@ -458,7 +785,7 @@ execute_backup_operation() {
             # Step 4: Create backup with tar (all important user folders)
             echo "Running tar with multiple folders..." >> "$temp"
             TAR_OUTPUT=$(sshpass -p "$WINDOWS_PASS" ssh -o ConnectTimeout=60 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${WINDOWS_USER}@${ip}" \
-                "cd C:\\ && tar.exe -czf \"$REMOTE_FILE_PATH\" \"Users\\Administrator\\Documents\" \"Users\\Administrator\\Desktop\" \"Users\\Administrator\\Downloads\" \"Users\\Administrator\\Pictures\" \"Users\\Administrator\\Videos\" \"Users\\Administrator\\Music\" \"PerfLogs\" \"Program Files\" \"Windows\\System32\\drivers\\etc\" 2>&1" 2>&1)
+                "tar.exe -czf \"$REMOTE_FILE_PATH\" -C C:\\ \"Users\\Administrator\\Documents\" \"Users\\Administrator\\Desktop\" \"Users\\Administrator\\Downloads\" \"Users\\Administrator\\Pictures\" \"Users\\Administrator\\Videos\" \"Users\\Administrator\\Music\" \"PerfLogs\" \"Program Files\" \"Windows\\System32\\drivers\\etc\" 2>&1" 2>&1)
             
             echo "=== TAR Output ===" >> "$temp"
             echo "$TAR_OUTPUT" >> "$temp"
@@ -474,7 +801,7 @@ execute_backup_operation() {
                 echo "ERROR: Backup file was not generated" >> "$temp"
             else
                 # 6. Download the backup (convert Windows path to SCP format)
-                local_file_name="backup-WIN-${WIN_HOSTNAME:-$ip}-${TIMESTAMP}.tar.gz"
+                local_file_name="backup-WIN-${ip}-${TIMESTAMP}.tar.gz"
                 SCP_REMOTE_PATH=$(echo "$REMOTE_FILE_PATH" | sed 's|C:\\Windows\\Temp\\|/cygdrive/c/Windows/Temp/|' | sed 's|\\\\|/|g')
                 
                 echo "Original path: $REMOTE_FILE_PATH" >> "$temp"
