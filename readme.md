@@ -14,6 +14,7 @@ A comprehensive guide for adding and managing virtual machines in a remote manag
 - [Authentication Configuration](#authentication-configuration)
   - [Linux: Public Key Authentication](#linux-public-key-authentication)
   - [Windows: Password Authentication](#windows-password-authentication)
+- [Adding Hosts to hosts.conf](#adding-hosts-to-hostsconf)
 - [System Requirements](#system-requirements)
 - [Logs](#logs)
 
